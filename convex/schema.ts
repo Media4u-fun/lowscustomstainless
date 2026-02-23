@@ -1,10 +1,7 @@
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
-import { authTables } from "@convex-dev/better-auth";
 
 export default defineSchema({
-  ...authTables,
-
   // Portfolio projects
   portfolio: defineTable({
     title: v.string(),
