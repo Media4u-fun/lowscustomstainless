@@ -1,30 +1,15 @@
 "use client";
 
-import { ReactNode, useMemo } from "react";
-import { ConvexReactClient } from "convex/react";
-import { ConvexBetterAuthProvider } from "@convex-dev/better-auth/react";
-import { authClient } from "@/lib/auth-client";
+import { ReactNode } from "react";
+import { ConvexReactClient, ConvexProvider } from "convex/react";
 
-// Use a placeholder URL during build if not configured
-// This allows the build to pass even without Convex env vars
 const convexUrl = process.env.NEXT_PUBLIC_CONVEX_URL || "https://placeholder.convex.cloud";
+const convex = new ConvexReactClient(convexUrl);
 
-export function ConvexClientProvider({
-  children,
-  initialToken,
-}: {
-  children: ReactNode;
-  initialToken?: string | null;
-}) {
-  const convex = useMemo(() => new ConvexReactClient(convexUrl), []);
-
+export function ConvexClientProvider({ children }: { children: ReactNode }) {
   return (
-    <ConvexBetterAuthProvider
-      client={convex}
-      authClient={authClient}
-      initialToken={initialToken}
-    >
+    <ConvexProvider client={convex}>
       {children}
-    </ConvexBetterAuthProvider>
+    </ConvexProvider>
   );
 }
