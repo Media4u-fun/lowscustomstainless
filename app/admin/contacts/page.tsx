@@ -23,7 +23,7 @@ export default function ContactsAdminPage() {
             key={c._id}
             onClick={async () => {
               setSelected(c._id as Id<"contactSubmissions">);
-              if (!c.read) await markRead({ id: c._id });
+              if (!c.read) await markRead({ id: c._id as Id<"contactSubmissions"> });
             }}
             style={{
               padding: "20px 24px",
@@ -63,7 +63,7 @@ export default function ContactsAdminPage() {
             <div style={{ display: "flex", gap: "12px" }}>
               <a
                 href={`mailto:${selectedContact.email}?subject=Re: ${selectedContact.subject}`}
-                onClick={() => markReplied({ id: selectedContact._id })}
+                onClick={() => markReplied({ id: selectedContact._id as Id<"contactSubmissions"> })}
                 style={{
                   display: "inline-block",
                   background: "#e53e3e",
@@ -81,7 +81,7 @@ export default function ContactsAdminPage() {
               </a>
               {!selectedContact.replied && (
                 <button
-                  onClick={() => markReplied({ id: selectedContact._id })}
+                  onClick={() => markReplied({ id: selectedContact._id as Id<"contactSubmissions"> })}
                   style={{
                     background: "transparent",
                     border: "1px solid #2a2a2a",

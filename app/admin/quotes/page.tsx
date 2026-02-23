@@ -62,8 +62,8 @@ export default function QuotesAdminPage() {
             <div
               key={q._id}
               onClick={async () => {
-                setSelected(q._id);
-                if (!q.read) await markRead({ id: q._id });
+                setSelected(q._id as Id<"quoteRequests">);
+                if (!q.read) await markRead({ id: q._id as Id<"quoteRequests"> });
               }}
               style={{
                 padding: "20px 24px",
