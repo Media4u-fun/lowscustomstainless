@@ -37,6 +37,24 @@ export default function GalleryPage() {
 
   return (
     <div style={{ background: "#0a0a0a", minHeight: "100vh", color: "#f5f5f5" }}>
+      <style>{`
+        .gallery-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+          gap: 3px;
+        }
+        @media (max-width: 640px) {
+          .gallery-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2px;
+          }
+        }
+        .gallery-item .hover-overlay { opacity: 0; transition: opacity 0.2s; }
+        @media (hover: none) {
+          .gallery-item .hover-overlay { opacity: 1; background: rgba(0,0,0,0.2) !important; }
+        }
+        .gallery-item:hover .hover-overlay { opacity: 1; }
+      `}</style>
       <Navbar />
 
       {/* Header */}
@@ -87,16 +105,11 @@ export default function GalleryPage() {
       {/* Grid */}
       <section style={{ padding: "0 24px 100px" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
-              gap: "3px",
-            }}
-          >
+          <div className="gallery-grid">
             {filtered.map((item, i) => (
               <div
                 key={i}
+                className="gallery-item"
                 onClick={() => setLightbox(item)}
                 style={{
                   position: "relative",
@@ -104,14 +117,6 @@ export default function GalleryPage() {
                   cursor: "pointer",
                   background: "#111",
                   aspectRatio: "4/3",
-                }}
-                onMouseEnter={(e) => {
-                  const overlay = e.currentTarget.querySelector(".hover-overlay") as HTMLDivElement;
-                  if (overlay) overlay.style.opacity = "1";
-                }}
-                onMouseLeave={(e) => {
-                  const overlay = e.currentTarget.querySelector(".hover-overlay") as HTMLDivElement;
-                  if (overlay) overlay.style.opacity = "0";
                 }}
               >
                 {item.type === "photo" ? (

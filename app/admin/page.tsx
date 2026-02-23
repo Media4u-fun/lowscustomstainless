@@ -2,6 +2,7 @@
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import Link from "next/link";
+import { FileText, MessageSquare, BarChart3, ShoppingBag, Package, Image } from "lucide-react";
 
 export default function AdminDashboard() {
   const quotes = useQuery(api.quoteRequests.list, {});
@@ -17,12 +18,12 @@ export default function AdminDashboard() {
   const pendingOrders = orders?.filter((o) => o.status === "pending").length ?? 0;
 
   const cards = [
-    { label: "New Quotes", value: newQuotes, href: "/admin/quotes", color: "#e53e3e", icon: "📋" },
-    { label: "Unread Contacts", value: unreadContacts, href: "/admin/contacts", color: "#d69e2e", icon: "✉" },
-    { label: "New Leads", value: newLeads, href: "/admin/leads", color: "#3182ce", icon: "📊" },
-    { label: "Pending Orders", value: pendingOrders, href: "/admin/orders", color: "#38a169", icon: "📦" },
-    { label: "Total Products", value: products?.length ?? 0, href: "/admin/products", color: "#805ad5", icon: "⚙" },
-    { label: "Portfolio Items", value: portfolio?.length ?? 0, href: "/admin/portfolio", color: "#319795", icon: "🖼" },
+    { label: "New Quotes", value: newQuotes, href: "/admin/quotes", color: "#e53e3e", Icon: FileText },
+    { label: "Unread Contacts", value: unreadContacts, href: "/admin/contacts", color: "#d69e2e", Icon: MessageSquare },
+    { label: "New Leads", value: newLeads, href: "/admin/leads", color: "#3182ce", Icon: BarChart3 },
+    { label: "Pending Orders", value: pendingOrders, href: "/admin/orders", color: "#38a169", Icon: ShoppingBag },
+    { label: "Total Products", value: products?.length ?? 0, href: "/admin/products", color: "#805ad5", Icon: Package },
+    { label: "Portfolio Items", value: portfolio?.length ?? 0, href: "/admin/portfolio", color: "#319795", Icon: Image },
   ];
 
   return (
@@ -48,7 +49,7 @@ export default function AdminDashboard() {
               borderTop: `3px solid ${c.color}`,
             }}
           >
-            <div style={{ fontSize: "28px", marginBottom: "8px" }}>{c.icon}</div>
+            <c.Icon size={20} color={c.color} style={{ marginBottom: "12px" }} />
             <div style={{ fontSize: "32px", fontWeight: 900, color: "#fff", marginBottom: "4px" }}>{c.value}</div>
             <div style={{ fontSize: "12px", color: "#666", letterSpacing: "1px", textTransform: "uppercase" }}>{c.label}</div>
           </Link>

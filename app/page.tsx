@@ -126,11 +126,12 @@ export default function HomePage() {
               border: "1px solid rgba(229,62,62,0.3)",
               borderRadius: "4px",
               padding: "6px 16px",
-              fontSize: "11px",
-              letterSpacing: "3px",
+              fontSize: "10px",
+              letterSpacing: "2px",
               textTransform: "uppercase",
               color: "#e53e3e",
               marginBottom: "32px",
+              maxWidth: "100%",
             }}
           >
             33 Years - Zero Compromises
@@ -165,7 +166,7 @@ export default function HomePage() {
             500. Built by Scott Low - master fabricator since 1991.
           </p>
 
-          <div style={{ display: "flex", gap: "16px", justifyContent: "center", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap", width: "100%" }}>
             <Link
               href="/quote"
               style={{
@@ -174,26 +175,29 @@ export default function HomePage() {
                 gap: "8px",
                 background: "#e53e3e",
                 color: "#fff",
-                padding: "16px 32px",
+                padding: "16px 28px",
                 borderRadius: "4px",
                 fontWeight: 700,
                 fontSize: "14px",
                 letterSpacing: "1px",
                 textTransform: "uppercase",
                 textDecoration: "none",
+                flex: "1 1 auto",
+                justifyContent: "center",
+                maxWidth: "260px",
               }}
             >
               Request a Quote
             </Link>
             <Link
-              href="/portfolio"
+              href="/gallery"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "8px",
                 background: "transparent",
                 color: "#f5f5f5",
-                padding: "16px 32px",
+                padding: "16px 28px",
                 borderRadius: "4px",
                 fontWeight: 700,
                 fontSize: "14px",
@@ -201,9 +205,12 @@ export default function HomePage() {
                 textTransform: "uppercase",
                 textDecoration: "none",
                 border: "1px solid #333",
+                flex: "1 1 auto",
+                justifyContent: "center",
+                maxWidth: "260px",
               }}
             >
-              View Portfolio
+              View Our Work
             </Link>
           </div>
 
