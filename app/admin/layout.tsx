@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  LayoutDashboard, FolderImage, MessageSquare, FileText,
+  LayoutDashboard, Image, MessageSquare, FileText,
   ShoppingBag, Package, Users, Mail, Settings, BarChart3, UserPlus,
 } from "lucide-react";
 
@@ -11,7 +11,7 @@ const navItems = [
   { href: "/admin/quotes", label: "Quote Requests", icon: FileText },
   { href: "/admin/contacts", label: "Contacts", icon: MessageSquare },
   { href: "/admin/leads", label: "Leads", icon: BarChart3 },
-  { href: "/admin/portfolio", label: "Portfolio", icon: FolderImage },
+  { href: "/admin/portfolio", label: "Portfolio", icon: Image },
   { href: "/admin/products", label: "Products", icon: Package },
   { href: "/admin/orders", label: "Orders", icon: ShoppingBag },
   { href: "/admin/blog", label: "Blog", icon: FileText },
