@@ -29,7 +29,7 @@ http.route({
       return new Response("Server configuration error", { status: 500 });
     }
 
-    const stripe = new Stripe(stripeSecretKey, { apiVersion: "2025-12-15.clover" });
+    const stripe = new Stripe(stripeSecretKey, { apiVersion: "2026-01-28.clover" });
     const body = await request.text();
     const signature = request.headers.get("stripe-signature");
 
