@@ -22,7 +22,7 @@ export default function ContactsAdminPage() {
           <div
             key={c._id}
             onClick={async () => {
-              setSelected(c._id);
+              setSelected(c._id as Id<"contactSubmissions">);
               if (!c.read) await markRead({ id: c._id });
             }}
             style={{
