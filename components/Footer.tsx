@@ -83,7 +83,7 @@ export default function Footer() {
             </div>
             {[
               { href: "/quote", label: "Request a Quote" },
-              { href: "/store", label: "Shop Custom Builds" },
+              { href: "/store", label: "Commission Custom Work" },
               { href: "/contact", label: "Contact" },
               { href: "/login", label: "Client Portal" },
             ].map((l) => (

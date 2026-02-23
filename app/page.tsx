@@ -14,32 +14,32 @@ const clients = [
 
 const sectors = [
   {
-    icon: "🍽",
+    icon: "I",
     title: "Fine & Casual Dining",
     desc: "Yard House, Capital Grille, Claim Jumper, Buca di Beppo - the full spectrum of hospitality.",
   },
   {
-    icon: "⚡",
+    icon: "II",
     title: "Quick Service & Fast Casual",
     desc: "In-N-Out (70-80 locations), Chipotle, McDonald's, Starbucks, Popeyes.",
   },
   {
-    icon: "🏟",
+    icon: "III",
     title: "Stadiums & Entertainment",
     desc: "SoFi Stadium, Crypto.com Arena, Disney, Universal Studios.",
   },
   {
-    icon: "🏢",
+    icon: "IV",
     title: "Corporate & Technology",
     desc: "Apple, Google - built to the standards the world's most demanding companies require.",
   },
   {
-    icon: "🏥",
+    icon: "V",
     title: "Institutional",
     desc: "Kaiser Hospitals, Fire Departments - mission-critical environments with zero margin for error.",
   },
   {
-    icon: "🍺",
+    icon: "VI",
     title: "Specialty & Boutique",
     desc: "805 Brewery, Campfire Grill - artisanal copper and custom finishes.",
   },
@@ -213,12 +213,15 @@ export default function HomePage() {
               href="/contact"
               style={{
                 color: "#d69e2e",
-                fontSize: "13px",
+                fontSize: "12px",
                 textDecoration: "none",
-                letterSpacing: "1px",
+                letterSpacing: "2px",
+                textTransform: "uppercase",
+                borderBottom: "1px solid rgba(214,158,46,0.3)",
+                paddingBottom: "2px",
               }}
             >
-              ⚡ Emergency overnight install? Call us now
+              Emergency Overnight Install - Inquire Now
             </Link>
           </div>
         </div>
@@ -318,7 +321,7 @@ export default function HomePage() {
                   (e.currentTarget as HTMLDivElement).style.borderLeftColor = "transparent";
                 }}
               >
-                <div style={{ fontSize: "32px", marginBottom: "16px" }}>{s.icon}</div>
+                <div style={{ fontSize: "13px", fontWeight: 700, letterSpacing: "3px", color: "#e53e3e", marginBottom: "20px", fontFamily: "serif" }}>{s.icon}</div>
                 <h3
                   style={{
                     fontSize: "18px",
@@ -550,7 +553,7 @@ export default function HomePage() {
                 border: "1px solid #d69e2e",
               }}
             >
-              Shop Custom Builds
+              Commission Custom Work
             </Link>
           </div>
         </div>

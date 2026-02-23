@@ -105,7 +105,7 @@ export default function PortfolioPage() {
                     <img src={p.coverImage} alt={p.title} style={{ width: "100%", height: "320px", objectFit: "cover" }} />
                   ) : (
                     <div style={{ height: "320px", background: "linear-gradient(135deg, #111 0%, #1a1a1a 100%)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                      <span style={{ fontSize: "48px", opacity: 0.3 }}>⚙</span>
+                      <span style={{ fontSize: "11px", letterSpacing: "4px", color: "#333", textTransform: "uppercase" }}>Low&apos;s Custom Stainless</span>
                     </div>
                   )}
                   <div
