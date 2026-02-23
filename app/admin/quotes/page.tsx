@@ -114,7 +114,7 @@ export default function QuotesAdminPage() {
               </div>
               <select
                 value={selectedQuote.status}
-                onChange={(e) => handleStatus(selectedQuote._id, e.target.value)}
+                onChange={(e) => handleStatus(selectedQuote._id as Id<"quoteRequests">, e.target.value)}
                 style={{
                   background: "#111",
                   border: "1px solid #2a2a2a",
