@@ -64,7 +64,7 @@ export const sendReply = action({
       html,
     });
 
-    await ctx.runMutation(api.emailReplies.logReply, {
+    await ctx.runAction(api.emailReplies.logReply, {
       to,
       subject,
       body,
