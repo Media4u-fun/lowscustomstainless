@@ -53,8 +53,14 @@ export default function WeldingText() {
 
     const dpr = window.devicePixelRatio || 1;
     const rect = container.getBoundingClientRect();
-    const W = rect.width;
-    const H = rect.height;
+    const containerW = rect.width;
+    const containerH = rect.height;
+    // Canvas is much larger than container to catch flying sparks
+    const W = window.innerWidth * 1.5;
+    const H = window.innerHeight * 1.5;
+    // Offset so the text area maps to the right spot
+    const offsetX = window.innerWidth * 0.25;
+    const offsetY = window.innerHeight * 0.5;
     canvas.width = W * dpr;
     canvas.height = H * dpr;
     canvas.style.width = `${W}px`;
@@ -65,9 +71,9 @@ export default function WeldingText() {
     const mainSize = Math.min(Math.max(48, 8 * vw), 96);
     const fontFamily = `"Playfair Display", Georgia, "Times New Roman", serif`;
     const font = `900 ${mainSize}px ${fontFamily}`;
-    const centerX = W / 2;
-    const line1Y = 0;
-    const line2Y = mainSize * 1.05;
+    const centerX = offsetX + containerW / 2;
+    const line1Y = offsetY;
+    const line2Y = offsetY + mainSize * 1.05;
 
     // Measure individual character positions for each line
     function measureLetters(text: string, yOffset: number, lineIdx: number): LetterRegion[] {
@@ -209,16 +215,47 @@ export default function WeldingText() {
     function spawnSparks(x: number, y: number, count: number) {
       for (let i = 0; i < count; i++) {
         const angle = Math.random() * Math.PI * 2;
-        const speed = 0.6 + Math.random() * 2.5;
-        const life = 20 + Math.random() * 35;
+        // Insane speed — sparks fly across the entire page
+        const speed = 2 + Math.random() * 12;
+        const life = 40 + Math.random() * 80;
         sparks.push({
           x, y,
           vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed - Math.random() * 1.2,
+          vy: Math.sin(angle) * speed - Math.random() * 8,
           life, maxLife: life,
-          size: 0.5 + Math.random() * 2,
-          brightness: 0.4 + Math.random() * 0.6,
+          size: 1 + Math.random() * 4,
+          brightness: 0.6 + Math.random() * 0.4,
         });
+      }
+      // Extra shower burst — downward spray like real welding
+      for (let i = 0; i < Math.floor(count * 0.6); i++) {
+        const angle = Math.PI * 0.3 + Math.random() * Math.PI * 0.4; // downward arc
+        const speed = 3 + Math.random() * 10;
+        const life = 50 + Math.random() * 70;
+        sparks.push({
+          x, y,
+          vx: Math.cos(angle) * speed * (Math.random() > 0.5 ? 1 : -1),
+          vy: Math.abs(Math.sin(angle)) * speed,
+          life, maxLife: life,
+          size: 0.5 + Math.random() * 3,
+          brightness: 0.5 + Math.random() * 0.5,
+        });
+      }
+      // Occasional huge bright streakers that fly far
+      if (Math.random() > 0.5) {
+        for (let i = 0; i < 3; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const speed = 8 + Math.random() * 15;
+          const life = 60 + Math.random() * 100;
+          sparks.push({
+            x, y,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed - Math.random() * 5,
+            life, maxLife: life,
+            size: 2 + Math.random() * 5,
+            brightness: 0.9 + Math.random() * 0.1,
+          });
+        }
       }
     }
 
@@ -227,7 +264,8 @@ export default function WeldingText() {
         const s = sparks[i];
         s.x += s.vx;
         s.y += s.vy;
-        s.vy += 0.1;
+        s.vy += 0.08; // lighter gravity so they fly further
+        s.vx *= 0.995; // slight air resistance
         s.life--;
         if (s.life <= 0) sparks.splice(i, 1);
       }
@@ -238,15 +276,25 @@ export default function WeldingText() {
         const alpha = (s.life / s.maxLife) * s.brightness;
         const t = 1 - s.life / s.maxLife;
         let r: number, g: number, b: number;
-        if (t < 0.15) { r = 255; g = 255; b = 255; }
-        else if (t < 0.4) { r = 255; g = 210 - t * 120; b = 80 - t * 80; }
-        else { r = 220; g = 140 - t * 100; b = 0; }
+        if (t < 0.1) { r = 255; g = 255; b = 255; }
+        else if (t < 0.3) { r = 255; g = 230 - t * 100; b = 120 - t * 120; }
+        else if (t < 0.6) { r = 255; g = 180 - t * 150; b = 0; }
+        else { r = 200; g = Math.max(0, 100 - t * 100); b = 0; }
         c.globalAlpha = alpha;
         c.fillStyle = `rgb(${r},${Math.max(0, g)},${Math.max(0, b)})`;
-        c.shadowColor = `rgba(255, 170, 0, ${alpha * 0.5})`;
-        c.shadowBlur = s.size * 3;
+        c.shadowColor = `rgba(255, 170, 0, ${alpha * 0.8})`;
+        c.shadowBlur = s.size * 6;
+        // Draw spark with a motion trail
+        const trail = Math.min(s.size * 2, 6);
         c.beginPath();
-        c.arc(s.x, s.y, s.size * (s.life / s.maxLife), 0, Math.PI * 2);
+        c.moveTo(s.x - s.vx * trail * 0.3, s.y - s.vy * trail * 0.3);
+        c.lineTo(s.x, s.y);
+        c.lineWidth = s.size * (s.life / s.maxLife);
+        c.strokeStyle = c.fillStyle;
+        c.stroke();
+        // Bright head
+        c.beginPath();
+        c.arc(s.x, s.y, s.size * (s.life / s.maxLife) * 0.8, 0, Math.PI * 2);
         c.fill();
       }
       c.shadowBlur = 0;
@@ -334,16 +382,17 @@ export default function WeldingText() {
           const pathIdx = Math.min(Math.floor(withinLetterProgress * path.length), path.length - 1);
           const pt = path[pathIdx];
 
-          // Arc welder glow
-          const flash = Math.random() > 0.75 ? 1.4 : 1;
-          const glowRadius = (10 + Math.random() * 8) * flash;
+          // MASSIVE arc welder glow
+          const flash = Math.random() > 0.6 ? 2.0 : 1.2;
+          const glowRadius = (25 + Math.random() * 20) * flash;
           const gradient = ctx.createRadialGradient(
             pt.x, pt.y, 0,
             pt.x, pt.y, glowRadius
           );
-          gradient.addColorStop(0, `rgba(255, 255, 255, ${0.95 * flash})`);
-          gradient.addColorStop(0.3, `rgba(200, 169, 81, ${0.3 * flash})`);
-          gradient.addColorStop(1, "rgba(255, 170, 0, 0)");
+          gradient.addColorStop(0, `rgba(255, 255, 255, ${1.0})`);
+          gradient.addColorStop(0.15, `rgba(255, 240, 200, ${0.8 * flash})`);
+          gradient.addColorStop(0.4, `rgba(200, 169, 81, ${0.4 * flash})`);
+          gradient.addColorStop(1, "rgba(255, 100, 0, 0)");
 
           ctx.globalCompositeOperation = "lighter";
           ctx.fillStyle = gradient;
@@ -351,15 +400,29 @@ export default function WeldingText() {
           ctx.arc(pt.x, pt.y, glowRadius, 0, Math.PI * 2);
           ctx.fill();
 
+          // Second wider ambient glow
+          const ambient = ctx.createRadialGradient(
+            pt.x, pt.y, 0,
+            pt.x, pt.y, glowRadius * 2.5
+          );
+          ambient.addColorStop(0, `rgba(255, 170, 50, ${0.15 * flash})`);
+          ambient.addColorStop(1, "rgba(255, 100, 0, 0)");
+          ctx.fillStyle = ambient;
+          ctx.beginPath();
+          ctx.arc(pt.x, pt.y, glowRadius * 2.5, 0, Math.PI * 2);
+          ctx.fill();
+
+          // White-hot core
           ctx.fillStyle = "#fff";
           ctx.shadowColor = "#fff";
-          ctx.shadowBlur = 12;
+          ctx.shadowBlur = 30;
           ctx.beginPath();
-          ctx.arc(pt.x, pt.y, 2, 0, Math.PI * 2);
+          ctx.arc(pt.x, pt.y, 4, 0, Math.PI * 2);
           ctx.fill();
           ctx.shadowBlur = 0;
 
-          spawnSparks(pt.x, pt.y, 2 + Math.floor(Math.random() * 5));
+          // TONS of sparks — 15-35 per frame
+          spawnSparks(pt.x, pt.y, 15 + Math.floor(Math.random() * 20));
           drawSparks(ctx);
           ctx.globalCompositeOperation = "source-over";
         }
@@ -406,6 +469,7 @@ export default function WeldingText() {
         minHeight: `calc(clamp(48px, 8vw, 96px) * 2.3)`,
         marginBottom: "24px",
         textAlign: "center",
+        overflow: "visible",
       }}
     >
       {!animationDone && (
@@ -413,10 +477,11 @@ export default function WeldingText() {
           ref={canvasRef}
           style={{
             position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
+            top: "-50vh",
+            left: "-25vw",
+            width: "150vw",
+            height: "150vh",
+            pointerEvents: "none",
           }}
         />
       )}
