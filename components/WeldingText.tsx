@@ -205,54 +205,59 @@ export default function WeldingText() {
       }
     }
 
-    const DURATION = 14000; // 14 seconds — slow deliberate per letter
+    const DURATION = 4000; // fast trace
     const sparks: Spark[] = [];
     let startTime: number | null = null;
 
     // Track which letters are fully revealed
     const letterRevealed = new Array(totalLetters).fill(false);
 
+    const MAX_SPARKS = 300;
+    let boomTriggered = false;
+
     function spawnSparks(x: number, y: number, count: number) {
-      for (let i = 0; i < count; i++) {
+      if (sparks.length >= MAX_SPARKS) return;
+      const budget = Math.min(count, MAX_SPARKS - sparks.length);
+      for (let i = 0; i < budget; i++) {
         const angle = Math.random() * Math.PI * 2;
-        // Insane speed — sparks fly across the entire page
-        const speed = 2 + Math.random() * 12;
-        const life = 40 + Math.random() * 80;
+        const speed = 2 + Math.random() * 10;
+        const life = 30 + Math.random() * 50;
         sparks.push({
           x, y,
           vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed - Math.random() * 8,
+          vy: Math.sin(angle) * speed - Math.random() * 6,
           life, maxLife: life,
-          size: 1 + Math.random() * 4,
+          size: 1 + Math.random() * 3.5,
           brightness: 0.6 + Math.random() * 0.4,
         });
       }
-      // Extra shower burst — downward spray like real welding
-      for (let i = 0; i < Math.floor(count * 0.6); i++) {
-        const angle = Math.PI * 0.3 + Math.random() * Math.PI * 0.4; // downward arc
-        const speed = 3 + Math.random() * 10;
-        const life = 50 + Math.random() * 70;
+      // Downward spray
+      const showerBudget = Math.min(Math.floor(budget * 0.4), MAX_SPARKS - sparks.length);
+      for (let i = 0; i < showerBudget; i++) {
+        const angle = Math.PI * 0.3 + Math.random() * Math.PI * 0.4;
+        const speed = 3 + Math.random() * 8;
+        const life = 35 + Math.random() * 45;
         sparks.push({
           x, y,
           vx: Math.cos(angle) * speed * (Math.random() > 0.5 ? 1 : -1),
           vy: Math.abs(Math.sin(angle)) * speed,
           life, maxLife: life,
-          size: 0.5 + Math.random() * 3,
+          size: 0.5 + Math.random() * 2.5,
           brightness: 0.5 + Math.random() * 0.5,
         });
       }
-      // Occasional huge bright streakers that fly far
-      if (Math.random() > 0.5) {
-        for (let i = 0; i < 3; i++) {
+      // Occasional streakers
+      if (Math.random() > 0.6 && sparks.length < MAX_SPARKS - 2) {
+        for (let i = 0; i < 2; i++) {
           const angle = Math.random() * Math.PI * 2;
-          const speed = 8 + Math.random() * 15;
-          const life = 60 + Math.random() * 100;
+          const speed = 8 + Math.random() * 12;
+          const life = 40 + Math.random() * 60;
           sparks.push({
             x, y,
             vx: Math.cos(angle) * speed,
-            vy: Math.sin(angle) * speed - Math.random() * 5,
+            vy: Math.sin(angle) * speed - Math.random() * 4,
             life, maxLife: life,
-            size: 2 + Math.random() * 5,
+            size: 2 + Math.random() * 4,
             brightness: 0.9 + Math.random() * 0.1,
           });
         }
@@ -264,14 +269,15 @@ export default function WeldingText() {
         const s = sparks[i];
         s.x += s.vx;
         s.y += s.vy;
-        s.vy += 0.08; // lighter gravity so they fly further
-        s.vx *= 0.995; // slight air resistance
+        s.vy += 0.08;
+        s.vx *= 0.995;
         s.life--;
         if (s.life <= 0) sparks.splice(i, 1);
       }
     }
 
     function drawSparks(c: CanvasRenderingContext2D) {
+      c.shadowBlur = 0; // no per-spark shadow — big perf win
       for (const s of sparks) {
         const alpha = (s.life / s.maxLife) * s.brightness;
         const t = 1 - s.life / s.maxLife;
@@ -280,24 +286,21 @@ export default function WeldingText() {
         else if (t < 0.3) { r = 255; g = 230 - t * 100; b = 120 - t * 120; }
         else if (t < 0.6) { r = 255; g = 180 - t * 150; b = 0; }
         else { r = 200; g = Math.max(0, 100 - t * 100); b = 0; }
+        const sz = s.size * (s.life / s.maxLife);
         c.globalAlpha = alpha;
         c.fillStyle = `rgb(${r},${Math.max(0, g)},${Math.max(0, b)})`;
-        c.shadowColor = `rgba(255, 170, 0, ${alpha * 0.8})`;
-        c.shadowBlur = s.size * 6;
-        // Draw spark with a motion trail
-        const trail = Math.min(s.size * 2, 6);
+        // Motion trail line
         c.beginPath();
-        c.moveTo(s.x - s.vx * trail * 0.3, s.y - s.vy * trail * 0.3);
+        c.moveTo(s.x - s.vx * 2, s.y - s.vy * 2);
         c.lineTo(s.x, s.y);
-        c.lineWidth = s.size * (s.life / s.maxLife);
+        c.lineWidth = sz * 0.7;
         c.strokeStyle = c.fillStyle;
         c.stroke();
-        // Bright head
+        // Bright head dot
         c.beginPath();
-        c.arc(s.x, s.y, s.size * (s.life / s.maxLife) * 0.8, 0, Math.PI * 2);
+        c.arc(s.x, s.y, sz * 0.8, 0, Math.PI * 2);
         c.fill();
       }
-      c.shadowBlur = 0;
       c.globalAlpha = 1;
     }
 
@@ -421,14 +424,46 @@ export default function WeldingText() {
           ctx.fill();
           ctx.shadowBlur = 0;
 
-          // TONS of sparks — 15-35 per frame
-          spawnSparks(pt.x, pt.y, 15 + Math.floor(Math.random() * 20));
+          // Big spark shower — capped by MAX_SPARKS
+          spawnSparks(pt.x, pt.y, 10 + Math.floor(Math.random() * 12));
           drawSparks(ctx);
           ctx.globalCompositeOperation = "source-over";
         }
       }
 
+      // BIG BOOM when trace finishes
+      if (rawProgress >= 1 && !boomTriggered) {
+        boomTriggered = true;
+        // Explode from center of each line
+        const boomY1 = line1Y + mainSize * 0.5;
+        const boomY2 = line2Y + mainSize * 0.5;
+        // Temporarily raise cap for the finale
+        const savedMax = MAX_SPARKS;
+        for (let i = 0; i < 500; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const speed = 4 + Math.random() * 18;
+          const life = 50 + Math.random() * 80;
+          const boomY = i < 250 ? boomY1 : boomY2;
+          const boomX = centerX + (Math.random() - 0.5) * containerW * 0.6;
+          sparks.push({
+            x: boomX, y: boomY,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed - Math.random() * 10,
+            life, maxLife: life,
+            size: 1.5 + Math.random() * 5,
+            brightness: 0.7 + Math.random() * 0.3,
+          });
+        }
+      }
+
       updateSparks();
+
+      // Draw sparks even after trace is done (for the boom)
+      if (rawProgress >= 1) {
+        ctx.globalCompositeOperation = "lighter";
+        drawSparks(ctx);
+        ctx.globalCompositeOperation = "source-over";
+      }
 
       if (rawProgress >= 1 && sparks.length === 0) {
         setAnimationDone(true);
