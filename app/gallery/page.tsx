@@ -1,7 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+
+// TEMPORARY: Images disabled — originals are too large (815MB total, some 6-9MB each).
+// To re-enable: compress images to <500KB each, then set USE_PLACEHOLDERS to false.
+const USE_PLACEHOLDERS = true;
 
 // To add new photos: drop them in /public/portfolio-photos/ and add the filename here
 const photos = [
@@ -25,13 +29,40 @@ const videos = [
 ];
 
 type MediaItem =
-  | { type: "photo"; src: string }
-  | { type: "video"; src: string };
+  | { type: "photo"; src: string; name: string }
+  | { type: "video"; src: string; name: string };
 
 const allMedia: MediaItem[] = [
-  ...videos.map((v) => ({ type: "video" as const, src: `/portfolio-photos/${v}` })),
-  ...photos.map((p) => ({ type: "photo" as const, src: `/portfolio-photos/${p}` })),
+  ...videos.map((v) => ({ type: "video" as const, src: `/portfolio-photos/${v}`, name: v })),
+  ...photos.map((p) => ({ type: "photo" as const, src: `/portfolio-photos/${p}`, name: p })),
 ];
+
+function LazyImage({ src, alt, style, onMouseEnter, onMouseLeave }: {
+  src: string; alt: string; style: React.CSSProperties;
+  onMouseEnter?: React.MouseEventHandler; onMouseLeave?: React.MouseEventHandler;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } }, { rootMargin: "200px" });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} style={{ width: "100%", height: "100%" }}>
+      {visible ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={src} alt={alt} style={style} loading="lazy" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} />
+      ) : (
+        <div style={{ width: "100%", height: "100%", background: "#1a1a1a" }} />
+      )}
+    </div>
+  );
+}
 
 export default function GalleryPage() {
   const [lightbox, setLightbox] = useState<MediaItem | null>(null);
@@ -127,9 +158,22 @@ export default function GalleryPage() {
                   aspectRatio: "4/3",
                 }}
               >
-                {item.type === "photo" ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
+                {USE_PLACEHOLDERS ? (
+                  <div style={{
+                    width: "100%", height: "100%",
+                    background: "linear-gradient(135deg, #1a1a1a 0%, #252525 50%, #1a1a1a 100%)",
+                    display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "12px",
+                  }}>
+                    <div style={{ color: "#C8A951", fontSize: "28px" }}>{item.type === "video" ? "\u25B6" : "\u2B1A"}</div>
+                    <div style={{ color: "#555", fontSize: "10px", letterSpacing: "2px", textTransform: "uppercase" }}>
+                      {item.name}
+                    </div>
+                    <div style={{ color: "#333", fontSize: "9px", letterSpacing: "1px" }}>
+                      Coming Soon
+                    </div>
+                  </div>
+                ) : item.type === "photo" ? (
+                  <LazyImage
                     src={item.src}
                     alt="Low's Custom Stainless work"
                     style={{
@@ -246,7 +290,22 @@ export default function GalleryPage() {
             onClick={(e) => e.stopPropagation()}
             style={{ maxWidth: "1200px", maxHeight: "90vh", width: "100%" }}
           >
-            {lightbox.type === "photo" ? (
+            {USE_PLACEHOLDERS ? (
+              <div style={{
+                width: "100%", height: "60vh",
+                background: "linear-gradient(135deg, #1a1a1a 0%, #252525 50%, #1a1a1a 100%)",
+                display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "16px",
+                border: "1px solid #2a2a2a", borderRadius: "4px",
+              }}>
+                <div style={{ color: "#C8A951", fontSize: "48px" }}>{lightbox.type === "video" ? "\u25B6" : "\u2B1A"}</div>
+                <div style={{ color: "#777", fontSize: "12px", letterSpacing: "2px", textTransform: "uppercase" }}>
+                  {lightbox.name}
+                </div>
+                <div style={{ color: "#444", fontSize: "11px", marginTop: "8px" }}>
+                  Images temporarily disabled while being optimized
+                </div>
+              </div>
+            ) : lightbox.type === "photo" ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={lightbox.src}
