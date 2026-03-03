@@ -5,6 +5,7 @@ export const dynamic = 'force-dynamic';
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import WeldingText from "@/components/WeldingText";
 
 const clients = [
   "Yard House", "In-N-Out", "Capital Grille", "Chipotle", "SoFi Stadium",
@@ -137,20 +138,7 @@ export default function HomePage() {
             Low&apos;s Custom Stainless - 45+ Years Experience - Zero Compromises
           </div>
 
-          <h1
-            style={{
-              fontSize: "clamp(48px, 8vw, 96px)",
-              fontWeight: 900,
-              lineHeight: 1,
-              letterSpacing: "-2px",
-              marginBottom: "24px",
-              color: "#fff",
-            }}
-          >
-            LOW&apos;S CUSTOM
-            <br />
-            <span style={{ color: "#8a8a8a" }}>STAINLESS</span>
-          </h1>
+          <WeldingText />
 
           <p
             style={{
