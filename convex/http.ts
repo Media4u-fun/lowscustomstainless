@@ -54,7 +54,6 @@ http.route({
           if (session.mode === "payment") {
             // Check if this is a Website Factory deposit
             if (session.metadata?.type === "website-factory-deposit") {
-              // Create lead from deposit payment
               await ctx.runMutation(internal.leads.createLeadFromDeposit, {
                 name: session.metadata.name,
                 businessName: session.metadata.businessName,
@@ -66,108 +65,15 @@ http.route({
                 notes: session.metadata.message || "Applied via /apply landing page with $50 deposit",
                 stripeSessionId: session.id,
                 stripePaymentIntentId: session.payment_intent as string,
-                depositAmount: 5000, // $50 in cents
+                depositAmount: 5000,
               });
               break;
             }
 
-            // One-time payment completed (regular orders)
-            const orderId = await ctx.runMutation(internal.stripe.updateOrderStatus, {
-              stripeSessionId: session.id,
-              status: "paid",
-              stripePaymentIntentId: session.payment_intent as string,
-              paidAt: Date.now(),
-            });
-
-            // If this order is linked to a project, mark project as paid
-            const projectId = session.metadata?.projectId;
-            if (projectId && orderId) {
-              await ctx.runMutation(internal.projects.markProjectAsPaid, {
-                projectId,
-                orderId,
-              });
-            }
+            console.log("Payment completed:", session.id);
           } else if (session.mode === "subscription") {
-            // Subscription checkout completed - subscription created event will handle the details
             console.log("Subscription checkout completed:", session.id);
           }
-          break;
-        }
-
-        case "invoice.paid": {
-          const invoice = event.data.object as Stripe.Invoice;
-
-          // Check if this is a setup fee invoice for a custom deal project
-          if (invoice.metadata?.type === "setup_fee" && invoice.metadata?.projectId) {
-            await ctx.runMutation(internal.projects.markSetupInvoicePaidByWebhook, {
-              stripeInvoiceId: invoice.id,
-            });
-            break;
-          }
-
-          const subscriptionDetails = invoice.parent?.subscription_details;
-          const subscriptionId = subscriptionDetails?.subscription;
-
-          if (subscriptionId && invoice.billing_reason === "subscription_create") {
-            // New subscription - create record using invoice period
-            const subId = typeof subscriptionId === "string" ? subscriptionId : subscriptionId.id;
-            // Get price ID from line item pricing
-            const lineItem = invoice.lines.data[0];
-            const priceId = lineItem?.pricing?.price_details?.price;
-            const priceIdStr = typeof priceId === "string" ? priceId : priceId?.id ?? "";
-
-            await ctx.runMutation(internal.stripe.createSubscription, {
-              userId: subscriptionDetails?.metadata?.userId || undefined,
-              stripeCustomerId: invoice.customer as string,
-              stripeSubscriptionId: subId,
-              stripePriceId: priceIdStr,
-              status: "active",
-              currentPeriodStart: invoice.period_start * 1000,
-              currentPeriodEnd: invoice.period_end * 1000,
-              cancelAtPeriodEnd: false,
-              customerEmail: invoice.customer_email ?? "",
-            });
-          }
-          break;
-        }
-
-        case "customer.subscription.created": {
-          const subscription = event.data.object as Stripe.Subscription;
-          // If this is a custom deal subscription, apply the cancel_at from metadata
-          const cancelAtStr = subscription.metadata?.cancelAt;
-          if (subscription.metadata?.customDeal === "true" && cancelAtStr) {
-            const cancelAtTimestamp = parseInt(cancelAtStr, 10);
-            if (!isNaN(cancelAtTimestamp)) {
-              await stripe.subscriptions.update(subscription.id, {
-                cancel_at: cancelAtTimestamp,
-              });
-            }
-          }
-          break;
-        }
-
-        case "customer.subscription.updated": {
-          const subscription = event.data.object as Stripe.Subscription;
-          // Use start_date and created as fallbacks for period tracking
-          const periodStart = subscription.start_date ?? subscription.created;
-          // Estimate period end as 30 days after start for monthly subscriptions
-          const periodEnd = periodStart + (30 * 24 * 60 * 60);
-          await ctx.runMutation(internal.stripe.updateSubscription, {
-            stripeSubscriptionId: subscription.id,
-            status: subscription.status as "active" | "past_due" | "canceled" | "unpaid",
-            currentPeriodStart: periodStart * 1000,
-            currentPeriodEnd: periodEnd * 1000,
-            cancelAtPeriodEnd: subscription.cancel_at_period_end,
-          });
-          break;
-        }
-
-        case "customer.subscription.deleted": {
-          const subscription = event.data.object as Stripe.Subscription;
-          await ctx.runMutation(internal.stripe.updateSubscription, {
-            stripeSubscriptionId: subscription.id,
-            status: "canceled",
-          });
           break;
         }
 
