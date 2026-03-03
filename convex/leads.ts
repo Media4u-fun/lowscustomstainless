@@ -1,5 +1,5 @@
 import { v } from "convex/values";
-import { query, mutation } from "./_generated/server";
+import { query, mutation, internalMutation } from "./_generated/server";
 import { requireAdmin } from "./auth";
 
 export const list = query({
@@ -53,5 +53,33 @@ export const remove = mutation({
   handler: async (ctx, { id }) => {
     await requireAdmin(ctx);
     await ctx.db.delete(id);
+  },
+});
+
+export const createLeadFromDeposit = internalMutation({
+  args: {
+    name: v.string(),
+    businessName: v.string(),
+    email: v.string(),
+    phone: v.optional(v.string()),
+    location: v.optional(v.string()),
+    industry: v.string(),
+    website: v.optional(v.string()),
+    notes: v.optional(v.string()),
+    stripeSessionId: v.string(),
+    stripePaymentIntentId: v.string(),
+    depositAmount: v.number(),
+  },
+  handler: async (ctx, args) => {
+    return ctx.db.insert("leads", {
+      name: args.name,
+      email: args.email,
+      phone: args.phone,
+      company: args.businessName,
+      source: "website-factory-deposit",
+      status: "qualified",
+      notes: `${args.notes || ""}\nIndustry: ${args.industry}\nLocation: ${args.location || "N/A"}\nDeposit: $${args.depositAmount / 100}\nStripe Session: ${args.stripeSessionId}`,
+      website: args.website,
+    });
   },
 });
