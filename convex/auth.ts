@@ -163,7 +163,8 @@ export const ensureAdminRole = mutation({
 export const seedAdmin = mutation({
   args: { email: v.string() },
   handler: async (ctx, { email }) => {
-    // Find user by email in the auth users table
+    // Find user by email in the auth users table (managed by Better Auth, not in our schema)
+    // @ts-expect-error - "users" table is created by Better Auth, not in our Convex schema
     const allUsers = await ctx.db.query("users").collect();
     const user = allUsers.find((u) => u.email?.toLowerCase() === email.toLowerCase());
     if (!user) throw new ConvexError({ code: "NOT_FOUND", message: `No user with email ${email}` });
