@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     template: "%s | Low's Custom Stainless",
   },
   description:
-    "33 years of elite commercial stainless steel fabrication and installation. Trusted by Yard House, In-N-Out, SoFi Stadium, Apple, and Google. M5 finish specialists.",
+    "Low's Custom Stainless — 45+ years of experience, 33 years in business. Elite commercial stainless steel fabrication and installation. Trusted by Yard House, In-N-Out, SoFi Stadium, Apple, and Google. Low's Custom Stainless M5 finish specialists.",
   keywords: [
     "custom stainless steel",
     "commercial fabrication",

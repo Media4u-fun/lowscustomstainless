@@ -15,7 +15,7 @@ export default function BlogPage() {
       {/* Header */}
       <section style={{ padding: "140px 24px 80px", borderBottom: "1px solid #1a1a1a" }}>
         <div style={{ maxWidth: "900px", margin: "0 auto" }}>
-          <div style={{ fontSize: "11px", letterSpacing: "3px", color: "#e53e3e", textTransform: "uppercase", marginBottom: "16px" }}>
+          <div style={{ fontSize: "11px", letterSpacing: "3px", color: "#C8A951", textTransform: "uppercase", marginBottom: "16px" }}>
             Blog
           </div>
           <h1 style={{ fontSize: "clamp(40px, 6vw, 80px)", fontWeight: 900, letterSpacing: "-2px", color: "#fff", lineHeight: 1, marginBottom: "24px" }}>
@@ -60,7 +60,7 @@ export default function BlogPage() {
                   }}
                   onMouseEnter={(e) => {
                     (e.currentTarget as HTMLAnchorElement).style.paddingLeft = "16px";
-                    (e.currentTarget as HTMLAnchorElement).style.borderLeft = "3px solid #e53e3e";
+                    (e.currentTarget as HTMLAnchorElement).style.borderLeft = "3px solid #C8A951";
                     (e.currentTarget as HTMLAnchorElement).style.transition = "all 0.2s";
                   }}
                   onMouseLeave={(e) => {
@@ -71,13 +71,13 @@ export default function BlogPage() {
                   {post.tags && post.tags.length > 0 && (
                     <div style={{
                       display: "inline-block",
-                      background: "rgba(229,62,62,0.1)",
-                      border: "1px solid rgba(229,62,62,0.2)",
+                      background: "rgba(200,169,81,0.1)",
+                      border: "1px solid rgba(200,169,81,0.2)",
                       borderRadius: "3px",
                       padding: "3px 10px",
                       fontSize: "10px",
                       letterSpacing: "2px",
-                      color: "#e53e3e",
+                      color: "#C8A951",
                       marginBottom: "16px",
                       textTransform: "uppercase",
                     }}>

@@ -26,7 +26,7 @@ export default function QuotesAdminPage() {
   }
 
   const statusColor: Record<string, string> = {
-    new: "#e53e3e", reviewing: "#d69e2e", quoted: "#3182ce", won: "#38a169", lost: "#555",
+    new: "#C8A951", reviewing: "#C8A951", quoted: "#3182ce", won: "#38a169", lost: "#555",
   };
 
   return (
@@ -41,9 +41,9 @@ export default function QuotesAdminPage() {
                 key={s}
                 onClick={() => setFilter(s)}
                 style={{
-                  background: filter === s ? "#e53e3e" : "transparent",
+                  background: filter === s ? "#C8A951" : "transparent",
                   color: filter === s ? "#fff" : "#666",
-                  border: `1px solid ${filter === s ? "#e53e3e" : "#2a2a2a"}`,
+                  border: `1px solid ${filter === s ? "#C8A951" : "#2a2a2a"}`,
                   borderRadius: "3px",
                   padding: "5px 12px",
                   fontSize: "11px",
@@ -70,12 +70,12 @@ export default function QuotesAdminPage() {
                 borderBottom: "1px solid #1a1a1a",
                 cursor: "pointer",
                 background: selected === q._id ? "#111" : "transparent",
-                borderLeft: selected === q._id ? "3px solid #e53e3e" : "3px solid transparent",
+                borderLeft: selected === q._id ? "3px solid #C8A951" : "3px solid transparent",
               }}
             >
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "4px" }}>
                 <div style={{ fontSize: "14px", fontWeight: 600, color: q.read ? "#ccc" : "#fff" }}>{q.name}</div>
-                <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: !q.read ? "#e53e3e" : "transparent", alignSelf: "center" }} />
+                <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: !q.read ? "#C8A951" : "transparent", alignSelf: "center" }} />
               </div>
               <div style={{ fontSize: "12px", color: "#666", marginBottom: "6px" }}>{q.projectType} {q.company ? `- ${q.company}` : ""}</div>
               <div
@@ -155,7 +155,7 @@ export default function QuotesAdminPage() {
               href={`mailto:${selectedQuote.email}?subject=Re: Your Quote Request - Low's Custom Stainless`}
               style={{
                 display: "inline-block",
-                background: "#e53e3e",
+                background: "#C8A951",
                 color: "#fff",
                 padding: "12px 24px",
                 borderRadius: "4px",

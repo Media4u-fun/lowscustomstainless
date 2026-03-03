@@ -5,8 +5,16 @@ import Footer from "@/components/Footer";
 
 // To add new photos: drop them in /public/portfolio-photos/ and add the filename here
 const photos = [
-  "5.jpg",
-  "photo-1.jpg",
+  "5.jpg", "BJLY5000.JPG", "BSXG5456.JPG", "IMG_0029.jpg", "IMG_0144.jpg", "IMG_0150.jpg",
+  "IMG_0274.jpg", "IMG_0278.jpg", "IMG_0439.jpg", "IMG_0736.JPG", "IMG_0739.JPG", "IMG_0758.JPG",
+  "IMG_0827.JPG", "IMG_2210.jpg", "IMG_2413.JPG", "IMG_2479.jpg", "IMG_2480.jpg", "IMG_2483.jpg",
+  "IMG_2610.JPG", "IMG_2682.JPG", "IMG_2866.JPG", "IMG_2907.jpg", "IMG_3224.JPG", "IMG_3243.jpg",
+  "IMG_3481.jpg", "IMG_3482.jpg", "IMG_3483.jpg", "IMG_3484.jpg", "IMG_3599.jpg", "IMG_3887.JPG",
+  "IMG_3907.JPG", "IMG_3910.JPG", "IMG_3959.JPG", "IMG_4795.JPG", "IMG_5471.JPG", "IMG_5529.JPG",
+  "IMG_5532.JPG", "IMG_5555.JPG", "IMG_5604.JPG", "IMG_5620.JPG", "IMG_5843.jpg", "IMG_8657.jpg",
+  "IMG_8664.JPG", "IMG_8680.JPG", "IMG_8685.JPG", "IMG_8740.JPG", "IMG_8799.JPG", "IMG_9226.jpg",
+  "IMG_9228.jpg", "IMG_9715.JPG", "IMG_9865.JPG", "IMG_9927.JPG", "IMG_9993.JPG",
+  "custommetal3.JPG", "photo-1.jpg",
 ];
 
 // To add new videos: drop them in /public/portfolio-photos/ and add the filename here
@@ -60,7 +68,7 @@ export default function GalleryPage() {
       {/* Header */}
       <section style={{ padding: "140px 24px 60px" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-          <div style={{ fontSize: "11px", letterSpacing: "3px", color: "#e53e3e", textTransform: "uppercase", marginBottom: "16px" }}>
+          <div style={{ fontSize: "11px", letterSpacing: "3px", color: "#C8A951", textTransform: "uppercase", marginBottom: "16px" }}>
             Gallery
           </div>
           <h1 style={{ fontSize: "clamp(40px, 6vw, 80px)", fontWeight: 900, letterSpacing: "-2px", color: "#fff", lineHeight: 1, marginBottom: "24px" }}>
@@ -82,9 +90,9 @@ export default function GalleryPage() {
                 key={f}
                 onClick={() => setFilter(f)}
                 style={{
-                  background: filter === f ? "#e53e3e" : "transparent",
+                  background: filter === f ? "#C8A951" : "transparent",
                   color: filter === f ? "#fff" : "#555",
-                  border: `1px solid ${filter === f ? "#e53e3e" : "#2a2a2a"}`,
+                  border: `1px solid ${filter === f ? "#C8A951" : "#2a2a2a"}`,
                   borderRadius: "3px",
                   padding: "8px 20px",
                   fontSize: "11px",
@@ -180,7 +188,7 @@ export default function GalleryPage() {
                     position: "absolute",
                     top: "12px",
                     left: "12px",
-                    background: "rgba(229,62,62,0.9)",
+                    background: "rgba(200,169,81,0.9)",
                     borderRadius: "2px",
                     padding: "3px 8px",
                     fontSize: "9px",

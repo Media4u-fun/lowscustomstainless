@@ -12,6 +12,17 @@ const sectors = ["dining", "qsr", "stadiums", "corporate", "brewery", "instituti
 // Add new filenames here when you drop photos into the folder
 const availablePhotos = [
   "5.jpg", "photo-1.jpg",
+  "BJLY5000.JPG", "BSXG5456.JPG",
+  "IMG_0029.jpg", "IMG_0144.jpg", "IMG_0150.jpg", "IMG_0274.jpg", "IMG_0278.jpg", "IMG_0439.jpg",
+  "IMG_0736.JPG", "IMG_0739.JPG", "IMG_0758.JPG", "IMG_0827.JPG",
+  "IMG_2210.jpg", "IMG_2413.JPG", "IMG_2479.jpg", "IMG_2480.jpg", "IMG_2483.jpg",
+  "IMG_2610.JPG", "IMG_2682.JPG", "IMG_2866.JPG", "IMG_2907.jpg",
+  "IMG_3224.JPG", "IMG_3243.jpg", "IMG_3481.jpg", "IMG_3482.jpg", "IMG_3483.jpg", "IMG_3484.jpg",
+  "IMG_3599.jpg", "IMG_3887.JPG", "IMG_3907.JPG", "IMG_3910.JPG", "IMG_3959.JPG",
+  "IMG_4795.JPG", "IMG_5471.JPG", "IMG_5529.JPG", "IMG_5532.JPG", "IMG_5555.JPG",
+  "IMG_5604.JPG", "IMG_5620.JPG", "IMG_5843.jpg",
+  "IMG_8657.jpg", "IMG_8664.JPG", "IMG_8680.JPG", "IMG_8685.JPG", "IMG_8740.JPG", "IMG_8799.JPG",
+  "IMG_9226.jpg", "IMG_9228.jpg", "IMG_9715.JPG", "IMG_9865.JPG", "IMG_9927.JPG", "IMG_9993.JPG",
 ];
 
 export default function PortfolioAdminPage() {
@@ -168,7 +179,7 @@ export default function PortfolioAdminPage() {
             <h1 style={{ fontSize: "20px", fontWeight: 700, color: "#fff" }}>Portfolio</h1>
             <button
               onClick={openCreate}
-              style={{ background: "#e53e3e", color: "#fff", border: "none", borderRadius: "4px", padding: "8px 16px", fontSize: "12px", fontWeight: 700, cursor: "pointer", letterSpacing: "1px" }}
+              style={{ background: "#C8A951", color: "#fff", border: "none", borderRadius: "4px", padding: "8px 16px", fontSize: "12px", fontWeight: 700, cursor: "pointer", letterSpacing: "1px" }}
             >
               + Add Project
             </button>
@@ -179,9 +190,9 @@ export default function PortfolioAdminPage() {
                 key={s}
                 onClick={() => setFilter(s)}
                 style={{
-                  background: filter === s ? "#e53e3e" : "transparent",
+                  background: filter === s ? "#C8A951" : "transparent",
                   color: filter === s ? "#fff" : "#555",
-                  border: `1px solid ${filter === s ? "#e53e3e" : "#2a2a2a"}`,
+                  border: `1px solid ${filter === s ? "#C8A951" : "#2a2a2a"}`,
                   borderRadius: "3px", padding: "4px 10px", fontSize: "11px",
                   textTransform: "uppercase", letterSpacing: "1px", cursor: "pointer",
                 }}
@@ -203,7 +214,7 @@ export default function PortfolioAdminPage() {
               borderBottom: "1px solid #111",
               cursor: "pointer",
               background: selected === p._id ? "#1a1a1a" : "transparent",
-              borderLeft: `3px solid ${selected === p._id ? "#e53e3e" : "transparent"}`,
+              borderLeft: `3px solid ${selected === p._id ? "#C8A951" : "transparent"}`,
               display: "flex",
               gap: "12px",
               alignItems: "center",
@@ -240,7 +251,7 @@ export default function PortfolioAdminPage() {
             <div style={{ color: "#555", fontSize: "14px" }}>Select a project or add a new one</div>
             <button
               onClick={openCreate}
-              style={{ background: "#e53e3e", color: "#fff", border: "none", borderRadius: "4px", padding: "12px 24px", fontSize: "13px", fontWeight: 700, cursor: "pointer", letterSpacing: "1px" }}
+              style={{ background: "#C8A951", color: "#fff", border: "none", borderRadius: "4px", padding: "12px 24px", fontSize: "13px", fontWeight: 700, cursor: "pointer", letterSpacing: "1px" }}
             >
               Add First Project
             </button>
@@ -259,7 +270,7 @@ export default function PortfolioAdminPage() {
                 </button>
                 <button
                   onClick={toggleFeatured}
-                  style={{ background: "transparent", color: selectedProject.featured ? "#d69e2e" : "#555", border: `1px solid ${selectedProject.featured ? "#d69e2e" : "#2a2a2a"}`, borderRadius: "4px", padding: "8px 16px", fontSize: "12px", cursor: "pointer" }}
+                  style={{ background: "transparent", color: selectedProject.featured ? "#C8A951" : "#555", border: `1px solid ${selectedProject.featured ? "#C8A951" : "#2a2a2a"}`, borderRadius: "4px", padding: "8px 16px", fontSize: "12px", cursor: "pointer" }}
                 >
                   {selectedProject.featured ? "Featured" : "Set Featured"}
                 </button>
@@ -269,7 +280,7 @@ export default function PortfolioAdminPage() {
                 >
                   {selectedProject.published ? "Live" : "Publish"}
                 </button>
-                <button onClick={handleDelete} style={{ background: "transparent", color: "#e53e3e", border: "1px solid #e53e3e", borderRadius: "4px", padding: "8px 16px", fontSize: "12px", cursor: "pointer" }}>
+                <button onClick={handleDelete} style={{ background: "transparent", color: "#C8A951", border: "1px solid #C8A951", borderRadius: "4px", padding: "8px 16px", fontSize: "12px", cursor: "pointer" }}>
                   Delete
                 </button>
               </div>
@@ -284,7 +295,7 @@ export default function PortfolioAdminPage() {
 
             {/* Details */}
             <div style={{ background: "#111", border: "1px solid #1a1a1a", borderRadius: "6px", padding: "24px", marginBottom: "20px" }}>
-              <div style={{ fontSize: "11px", letterSpacing: "2px", color: "#e53e3e", marginBottom: "16px", textTransform: "uppercase" }}>Details</div>
+              <div style={{ fontSize: "11px", letterSpacing: "2px", color: "#C8A951", marginBottom: "16px", textTransform: "uppercase" }}>Details</div>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
                 {[
                   { label: "Sector", value: selectedProject.sector },
@@ -301,14 +312,14 @@ export default function PortfolioAdminPage() {
             </div>
 
             <div style={{ background: "#111", border: "1px solid #1a1a1a", borderRadius: "6px", padding: "24px", marginBottom: "20px" }}>
-              <div style={{ fontSize: "11px", letterSpacing: "2px", color: "#e53e3e", marginBottom: "12px", textTransform: "uppercase" }}>Description</div>
+              <div style={{ fontSize: "11px", letterSpacing: "2px", color: "#C8A951", marginBottom: "12px", textTransform: "uppercase" }}>Description</div>
               <p style={{ color: "#ccc", fontSize: "14px", lineHeight: 1.7 }}>{selectedProject.description}</p>
             </div>
 
             {/* Gallery images */}
             {selectedProject.images.length > 0 && (
               <div style={{ background: "#111", border: "1px solid #1a1a1a", borderRadius: "6px", padding: "24px" }}>
-                <div style={{ fontSize: "11px", letterSpacing: "2px", color: "#e53e3e", marginBottom: "16px", textTransform: "uppercase" }}>Gallery ({selectedProject.images.length} photos)</div>
+                <div style={{ fontSize: "11px", letterSpacing: "2px", color: "#C8A951", marginBottom: "16px", textTransform: "uppercase" }}>Gallery ({selectedProject.images.length} photos)</div>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(120px, 1fr))", gap: "8px" }}>
                   {selectedProject.images.map((img, i) => (
                     <div key={i} style={{ aspectRatio: "1", borderRadius: "4px", overflow: "hidden", background: "#0a0a0a" }}>
@@ -398,7 +409,7 @@ export default function PortfolioAdminPage() {
                         {form.coverImage ? "Change Cover Photo" : "Choose Cover Photo from Gallery"}
                       </button>
                       {form.coverImage && (
-                        <button type="button" onClick={() => setForm({ ...form, coverImage: "" })} style={{ background: "transparent", border: "none", color: "#e53e3e", fontSize: "12px", cursor: "pointer", marginTop: "6px", padding: 0 }}>
+                        <button type="button" onClick={() => setForm({ ...form, coverImage: "" })} style={{ background: "transparent", border: "none", color: "#C8A951", fontSize: "12px", cursor: "pointer", marginTop: "6px", padding: 0 }}>
                           Remove
                         </button>
                       )}
@@ -417,7 +428,7 @@ export default function PortfolioAdminPage() {
                           <button
                             type="button"
                             onClick={() => setForm({ ...form, images: form.images.filter((_, j) => j !== i) })}
-                            style={{ position: "absolute", top: "-6px", right: "-6px", background: "#e53e3e", border: "none", borderRadius: "50%", color: "#fff", width: "18px", height: "18px", fontSize: "11px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", padding: 0 }}
+                            style={{ position: "absolute", top: "-6px", right: "-6px", background: "#C8A951", border: "none", borderRadius: "50%", color: "#fff", width: "18px", height: "18px", fontSize: "11px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", padding: 0 }}
                           >
                             x
                           </button>
@@ -447,7 +458,7 @@ export default function PortfolioAdminPage() {
               </div>
 
               <div style={{ display: "flex", gap: "12px", marginTop: "28px" }}>
-                <button type="submit" style={{ flex: 1, background: "#e53e3e", color: "#fff", border: "none", borderRadius: "4px", padding: "14px", fontSize: "14px", fontWeight: 700, cursor: "pointer" }}>
+                <button type="submit" style={{ flex: 1, background: "#C8A951", color: "#fff", border: "none", borderRadius: "4px", padding: "14px", fontSize: "14px", fontWeight: 700, cursor: "pointer" }}>
                   {editMode ? "Save Changes" : "Add Project"}
                 </button>
                 <button type="button" onClick={() => setShowForm(false)} style={{ background: "transparent", color: "#888", border: "1px solid #2a2a2a", borderRadius: "4px", padding: "14px 24px", fontSize: "14px", cursor: "pointer" }}>

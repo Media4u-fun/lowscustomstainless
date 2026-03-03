@@ -28,7 +28,7 @@ export default function PortfolioPage() {
       {/* Header */}
       <section style={{ padding: "140px 24px 60px" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-          <div style={{ fontSize: "11px", letterSpacing: "3px", color: "#e53e3e", textTransform: "uppercase", marginBottom: "16px" }}>
+          <div style={{ fontSize: "11px", letterSpacing: "3px", color: "#C8A951", textTransform: "uppercase", marginBottom: "16px" }}>
             Portfolio
           </div>
           <h1 style={{ fontSize: "clamp(40px, 6vw, 80px)", fontWeight: 900, letterSpacing: "-2px", color: "#fff", lineHeight: 1, marginBottom: "24px" }}>
@@ -51,9 +51,9 @@ export default function PortfolioPage() {
                 key={f.key}
                 onClick={() => setSector(f.key)}
                 style={{
-                  background: sector === f.key ? "#e53e3e" : "transparent",
+                  background: sector === f.key ? "#C8A951" : "transparent",
                   color: sector === f.key ? "#fff" : "#666",
-                  border: `1px solid ${sector === f.key ? "#e53e3e" : "#2a2a2a"}`,
+                  border: `1px solid ${sector === f.key ? "#C8A951" : "#2a2a2a"}`,
                   borderRadius: "3px",
                   padding: "8px 20px",
                   fontSize: "12px",
@@ -118,7 +118,7 @@ export default function PortfolioPage() {
                       background: "linear-gradient(transparent, rgba(0,0,0,0.9))",
                     }}
                   >
-                    <div style={{ fontSize: "10px", letterSpacing: "2px", color: "#e53e3e", textTransform: "uppercase", marginBottom: "6px" }}>
+                    <div style={{ fontSize: "10px", letterSpacing: "2px", color: "#C8A951", textTransform: "uppercase", marginBottom: "6px" }}>
                       {p.sector}
                     </div>
                     <div style={{ fontSize: "18px", fontWeight: 700, color: "#fff" }}>{p.title}</div>

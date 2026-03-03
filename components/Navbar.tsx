@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 
@@ -55,16 +56,26 @@ export default function Navbar() {
             style={{
               textDecoration: "none",
               display: "flex",
-              flexDirection: "column",
-              lineHeight: 1.1,
+              alignItems: "center",
+              gap: "10px",
             }}
           >
-            <span style={{ fontSize: "14px", fontWeight: 900, letterSpacing: "2px", color: "#fff", textTransform: "uppercase" }}>
-              Low&apos;s Custom
-            </span>
-            <span style={{ fontSize: "11px", fontWeight: 400, letterSpacing: "3px", color: "#e53e3e", textTransform: "uppercase" }}>
-              Stainless
-            </span>
+            <Image
+              src="/logo.jpg"
+              alt="Low's Custom Stainless"
+              width={44}
+              height={44}
+              style={{ borderRadius: "4px" }}
+              priority
+            />
+            <div style={{ lineHeight: 1.1 }}>
+              <span style={{ fontSize: "14px", fontWeight: 900, letterSpacing: "2px", color: "#fff", textTransform: "uppercase", display: "block" }}>
+                Low&apos;s Custom
+              </span>
+              <span style={{ fontSize: "11px", fontWeight: 400, letterSpacing: "3px", color: "#C8A951", textTransform: "uppercase", display: "block" }}>
+                Stainless
+              </span>
+            </div>
           </Link>
 
           {/* Desktop nav */}
@@ -88,10 +99,25 @@ export default function Navbar() {
                 {l.label}
               </Link>
             ))}
+            <a
+              href="tel:9099387628"
+              style={{
+                color: "#999",
+                textDecoration: "none",
+                fontSize: "13px",
+                fontWeight: 600,
+                letterSpacing: "1px",
+                transition: "color 0.2s",
+              }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = "#fff"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = "#999"; }}
+            >
+              (909) 938-7628
+            </a>
             <Link
               href="/quote"
               style={{
-                background: "#e53e3e",
+                background: "#C8A951",
                 color: "#fff",
                 padding: "8px 20px",
                 borderRadius: "3px",
@@ -102,7 +128,7 @@ export default function Navbar() {
                 textDecoration: "none",
               }}
             >
-              Get Quote
+              Commission
             </Link>
           </div>
 
@@ -145,11 +171,29 @@ export default function Navbar() {
                 {l.label}
               </Link>
             ))}
+            <a
+              href="tel:9099387628"
+              onClick={() => setOpen(false)}
+              style={{
+                color: "#C8A951",
+                textDecoration: "none",
+                fontSize: "16px",
+                fontWeight: 700,
+                letterSpacing: "1px",
+                textAlign: "center",
+                marginTop: "8px",
+                padding: "14px 24px",
+                border: "1px solid rgba(200,169,81,0.3)",
+                borderRadius: "3px",
+              }}
+            >
+              Call (909) 938-7628
+            </a>
             <Link
               href="/quote"
               onClick={() => setOpen(false)}
               style={{
-                background: "#e53e3e",
+                background: "#C8A951",
                 color: "#fff",
                 padding: "14px 24px",
                 borderRadius: "3px",
@@ -159,10 +203,9 @@ export default function Navbar() {
                 textTransform: "uppercase",
                 textDecoration: "none",
                 textAlign: "center",
-                marginTop: "8px",
               }}
             >
-              Get Quote
+              Commission
             </Link>
           </div>
         )}

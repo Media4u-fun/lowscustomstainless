@@ -2,6 +2,13 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 
+const responsiveStyles = `
+  .service-row { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  @media (max-width: 768px) {
+    .service-row { grid-template-columns: 1fr; gap: 32px; }
+  }
+`;
+
 const services = [
   {
     id: "m5-finish",
@@ -87,20 +94,21 @@ const services = [
 export default function ServicesPage() {
   return (
     <div style={{ background: "#0a0a0a", minHeight: "100vh", color: "#f5f5f5" }}>
+      <style>{responsiveStyles}</style>
       <Navbar />
 
       {/* Header */}
       <section style={{ padding: "140px 24px 80px", borderBottom: "1px solid #1a1a1a" }}>
         <div style={{ maxWidth: "900px", margin: "0 auto" }}>
-          <div style={{ fontSize: "11px", letterSpacing: "3px", color: "#e53e3e", textTransform: "uppercase", marginBottom: "24px" }}>
+          <div style={{ fontSize: "11px", letterSpacing: "3px", color: "#C8A951", textTransform: "uppercase", marginBottom: "24px" }}>
             Services
           </div>
           <h1 style={{ fontSize: "clamp(40px, 6vw, 80px)", fontWeight: 900, letterSpacing: "-2px", color: "#fff", lineHeight: 1, marginBottom: "24px" }}>
             Every Service.<br />
-            <span style={{ color: "#8a8a8a" }}>One Firm.</span>
+            <span style={{ color: "#8a8a8a" }}>One Name: Low&apos;s Custom Stainless.</span>
           </h1>
           <p style={{ fontSize: "18px", color: "#888", lineHeight: 1.8, maxWidth: "560px" }}>
-            We don&apos;t subcontract specialty work out. We don&apos;t hand projects off at installation.
+            Low&apos;s Custom Stainless doesn&apos;t subcontract specialty work out. We don&apos;t hand projects off at installation.
             We own every step because that&apos;s the only way to control the outcome.
           </p>
         </div>
@@ -112,11 +120,8 @@ export default function ServicesPage() {
           {services.map((s, i) => (
             <div
               key={s.id}
+              className="service-row"
               style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: "80px",
-                alignItems: "start",
                 padding: "80px 0",
                 borderBottom: i < services.length - 1 ? "1px solid #1a1a1a" : "none",
               }}
@@ -125,13 +130,13 @@ export default function ServicesPage() {
                 <div
                   style={{
                     display: "inline-block",
-                    background: "rgba(229,62,62,0.1)",
-                    border: "1px solid rgba(229,62,62,0.2)",
+                    background: "rgba(200,169,81,0.1)",
+                    border: "1px solid rgba(200,169,81,0.2)",
                     borderRadius: "3px",
                     padding: "4px 12px",
                     fontSize: "10px",
                     letterSpacing: "2px",
-                    color: "#e53e3e",
+                    color: "#C8A951",
                     marginBottom: "20px",
                     textTransform: "uppercase",
                   }}
@@ -141,7 +146,7 @@ export default function ServicesPage() {
                 <h2 style={{ fontSize: "clamp(24px, 3vw, 36px)", fontWeight: 900, color: "#fff", marginBottom: "8px", lineHeight: 1.1 }}>
                   {s.title}
                 </h2>
-                <div style={{ fontSize: "15px", color: "#e53e3e", marginBottom: "24px", fontStyle: "italic" }}>
+                <div style={{ fontSize: "15px", color: "#C8A951", marginBottom: "24px", fontStyle: "italic" }}>
                   {s.subtitle}
                 </div>
                 <p style={{ color: "#888", fontSize: "15px", lineHeight: 1.8 }}>{s.desc}</p>
@@ -164,7 +169,7 @@ export default function ServicesPage() {
                         gap: "12px",
                       }}
                     >
-                      <span style={{ color: "#e53e3e", fontWeight: 700 }}>-</span>
+                      <span style={{ color: "#C8A951", fontWeight: 700 }}>-</span>
                       {spec}
                     </li>
                   ))}
@@ -179,7 +184,7 @@ export default function ServicesPage() {
       <section style={{ padding: "80px 24px", background: "#111", borderTop: "1px solid #1a1a1a", textAlign: "center" }}>
         <div style={{ maxWidth: "600px", margin: "0 auto" }}>
           <h2 style={{ fontSize: "clamp(28px, 4vw, 48px)", fontWeight: 900, color: "#fff", marginBottom: "16px" }}>
-            Not Sure What You Need?
+            Not Sure What You Need From Low&apos;s Custom Stainless?
           </h2>
           <p style={{ color: "#777", fontSize: "16px", marginBottom: "40px" }}>
             Tell us about your project and we&apos;ll figure it out together.
@@ -188,7 +193,7 @@ export default function ServicesPage() {
             href="/quote"
             style={{
               display: "inline-block",
-              background: "#e53e3e",
+              background: "#C8A951",
               color: "#fff",
               padding: "18px 40px",
               borderRadius: "4px",
@@ -199,7 +204,7 @@ export default function ServicesPage() {
               textDecoration: "none",
             }}
           >
-            Start Your Quote
+            Commission Your Kitchen
           </Link>
         </div>
       </section>

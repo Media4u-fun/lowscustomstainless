@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { toast } from "sonner";
@@ -27,8 +27,11 @@ const timelines = [
 
 export default function QuotePage() {
   const submit = useMutation(api.quoteRequests.submit);
+  const generateUploadUrl = useMutation(api.files.generateUploadUrl);
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
+  const [files, setFiles] = useState<File[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [form, setForm] = useState({
     name: "", email: "", phone: "", company: "",
     projectType: "", sector: "", description: "",
@@ -45,6 +48,20 @@ export default function QuotePage() {
     }
     setLoading(true);
     try {
+      // Upload files if any
+      const fileUrls: string[] = [];
+      for (const file of files) {
+        const uploadUrl = await generateUploadUrl();
+        const result = await fetch(uploadUrl, {
+          method: "POST",
+          headers: { "Content-Type": file.type },
+          body: file,
+        });
+        if (!result.ok) throw new Error("File upload failed");
+        const { storageId } = await result.json();
+        fileUrls.push(storageId);
+      }
+
       await submit({
         name: form.name,
         email: form.email,
@@ -55,6 +72,7 @@ export default function QuotePage() {
         description: form.description,
         budget: form.budget || undefined,
         timeline: form.timeline || undefined,
+        fileUrls: fileUrls.length > 0 ? fileUrls : undefined,
       });
       setDone(true);
       toast.success("Quote request submitted!");
@@ -88,29 +106,33 @@ export default function QuotePage() {
 
   return (
     <div style={{ background: "#0a0a0a", minHeight: "100vh", color: "#f5f5f5" }}>
+      <style>{`
+        .quote-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+        @media (max-width: 768px) { .quote-row { grid-template-columns: 1fr; } }
+      `}</style>
       <Navbar />
       <div style={{ maxWidth: "760px", margin: "0 auto", padding: "120px 24px 80px" }}>
         <div style={{ marginBottom: "48px" }}>
-          <div style={{ fontSize: "11px", letterSpacing: "3px", color: "#e53e3e", textTransform: "uppercase", marginBottom: "16px" }}>
-            Get a Quote
+          <div style={{ fontSize: "11px", letterSpacing: "3px", color: "#C8A951", textTransform: "uppercase", marginBottom: "16px" }}>
+            Commission Your Kitchen
           </div>
           <h1 style={{ fontSize: "clamp(32px, 5vw, 56px)", fontWeight: 900, letterSpacing: "-1px", color: "#fff", marginBottom: "16px" }}>
-            Tell Us About Your Project
+            Commission Your Vision With Low&apos;s Custom Stainless
           </h1>
           <p style={{ color: "#777", fontSize: "16px", lineHeight: 1.7 }}>
-            We respond within one business day. For emergency overnight installs, call us directly.
+            Low&apos;s Custom Stainless responds within one business day. For emergency overnight installs, call us directly.
           </p>
         </div>
 
         {done ? (
-          <div style={{ background: "#111", border: "1px solid #1a1a1a", borderLeft: "4px solid #e53e3e", borderRadius: "4px", padding: "48px", textAlign: "center" }}>
+          <div style={{ background: "#111", border: "1px solid #1a1a1a", borderLeft: "4px solid #C8A951", borderRadius: "4px", padding: "48px", textAlign: "center" }}>
             <div style={{ fontSize: "48px", marginBottom: "16px" }}>✓</div>
-            <h2 style={{ fontSize: "24px", fontWeight: 700, color: "#fff", marginBottom: "12px" }}>Quote Request Received</h2>
+            <h2 style={{ fontSize: "24px", fontWeight: 700, color: "#fff", marginBottom: "12px" }}>Low&apos;s Custom Stainless Received Your Quote Request</h2>
             <p style={{ color: "#777" }}>We&apos;ll be in touch within one business day.</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit}>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", marginBottom: "24px" }}>
+            <div className="quote-row">
               <div>
                 <label style={labelStyle}>Name *</label>
                 <input style={inputStyle} value={form.name} onChange={(e) => set("name", e.target.value)} placeholder="Scott Low" required />
@@ -129,7 +151,7 @@ export default function QuotePage() {
               </div>
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", marginBottom: "24px" }}>
+            <div className="quote-row">
               <div>
                 <label style={labelStyle}>Project Type *</label>
                 <select style={inputStyle} value={form.projectType} onChange={(e) => set("projectType", e.target.value)} required>
@@ -171,12 +193,58 @@ export default function QuotePage() {
               />
             </div>
 
+            <div style={{ marginBottom: "32px" }}>
+              <label style={labelStyle}>Attachments (drawings, photos, specs)</label>
+              <input
+                ref={fileInputRef}
+                type="file"
+                multiple
+                accept="image/*,.pdf,.dwg,.dxf,.doc,.docx"
+                onChange={(e) => {
+                  if (e.target.files) setFiles(Array.from(e.target.files));
+                }}
+                style={{ display: "none" }}
+              />
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                style={{
+                  ...inputStyle,
+                  cursor: "pointer",
+                  textAlign: "left",
+                  color: files.length > 0 ? "#f5f5f5" : "#666",
+                }}
+              >
+                {files.length > 0
+                  ? `${files.length} file${files.length > 1 ? "s" : ""} selected: ${files.map((f) => f.name).join(", ")}`
+                  : "Click to upload files..."}
+              </button>
+              {files.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => { setFiles([]); if (fileInputRef.current) fileInputRef.current.value = ""; }}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    color: "#C8A951",
+                    fontSize: "12px",
+                    cursor: "pointer",
+                    marginTop: "8px",
+                    letterSpacing: "1px",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Clear files
+                </button>
+              )}
+            </div>
+
             <button
               type="submit"
               disabled={loading}
               style={{
                 width: "100%",
-                background: loading ? "#555" : "#e53e3e",
+                background: loading ? "#555" : "#C8A951",
                 color: "#fff",
                 border: "none",
                 borderRadius: "4px",
@@ -188,7 +256,7 @@ export default function QuotePage() {
                 cursor: loading ? "not-allowed" : "pointer",
               }}
             >
-              {loading ? "Submitting..." : "Submit Quote Request"}
+              {loading ? "Submitting..." : "Submit Commission Request"}
             </button>
           </form>
         )}

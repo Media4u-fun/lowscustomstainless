@@ -27,7 +27,7 @@ export default function StorePage() {
       {/* Header */}
       <section style={{ padding: "140px 24px 60px" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-          <div style={{ fontSize: "11px", letterSpacing: "3px", color: "#e53e3e", textTransform: "uppercase", marginBottom: "16px" }}>
+          <div style={{ fontSize: "11px", letterSpacing: "3px", color: "#C8A951", textTransform: "uppercase", marginBottom: "16px" }}>
             Store
           </div>
           <h1 style={{ fontSize: "clamp(40px, 6vw, 80px)", fontWeight: 900, letterSpacing: "-2px", color: "#fff", lineHeight: 1, marginBottom: "24px" }}>
@@ -49,9 +49,9 @@ export default function StorePage() {
               key={c.key}
               onClick={() => setCategory(c.key)}
               style={{
-                background: category === c.key ? "#e53e3e" : "transparent",
+                background: category === c.key ? "#C8A951" : "transparent",
                 color: category === c.key ? "#fff" : "#666",
-                border: `1px solid ${category === c.key ? "#e53e3e" : "#2a2a2a"}`,
+                border: `1px solid ${category === c.key ? "#C8A951" : "#2a2a2a"}`,
                 borderRadius: "3px",
                 padding: "8px 20px",
                 fontSize: "12px",
@@ -84,7 +84,7 @@ export default function StorePage() {
                 href="/quote"
                 style={{
                   display: "inline-block",
-                  background: "#e53e3e",
+                  background: "#C8A951",
                   color: "#fff",
                   padding: "14px 32px",
                   borderRadius: "4px",
@@ -130,14 +130,14 @@ export default function StorePage() {
                     <div style={{ fontSize: "18px", fontWeight: 700, color: "#fff", marginBottom: "8px" }}>{p.name}</div>
                     <div style={{ fontSize: "13px", color: "#777", marginBottom: "16px", lineHeight: 1.5 }}>{p.description}</div>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                      <div style={{ fontSize: "22px", fontWeight: 700, color: "#e53e3e" }}>
+                      <div style={{ fontSize: "22px", fontWeight: 700, color: "#C8A951" }}>
                         ${p.price.toLocaleString()}
                       </div>
                       <div
                         style={{
                           fontSize: "10px",
                           letterSpacing: "1px",
-                          color: p.inStock ? "#22c55e" : "#e53e3e",
+                          color: p.inStock ? "#22c55e" : "#C8A951",
                           textTransform: "uppercase",
                           fontWeight: 600,
                         }}

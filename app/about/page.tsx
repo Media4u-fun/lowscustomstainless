@@ -1,6 +1,16 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import CountUp from "@/components/CountUp";
+
+const responsiveStyles = `
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .services-detail { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  @media (max-width: 768px) {
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .services-detail { grid-template-columns: 1fr; gap: 40px; }
+  }
+`;
 
 const timeline = [
   { year: "1976", event: "Scott Low begins union sheet metal apprenticeship at age 15." },
@@ -15,33 +25,34 @@ const timeline = [
 export default function AboutPage() {
   return (
     <div style={{ background: "#0a0a0a", minHeight: "100vh", color: "#f5f5f5" }}>
+      <style>{responsiveStyles}</style>
       <Navbar />
 
       {/* Hero */}
       <section style={{ padding: "140px 24px 80px", borderBottom: "1px solid #1a1a1a" }}>
         <div style={{ maxWidth: "900px", margin: "0 auto" }}>
-          <div style={{ fontSize: "11px", letterSpacing: "3px", color: "#e53e3e", textTransform: "uppercase", marginBottom: "24px" }}>
-            About
+          <div style={{ fontSize: "11px", letterSpacing: "3px", color: "#C8A951", textTransform: "uppercase", marginBottom: "24px" }}>
+            About Low&apos;s Custom Stainless
           </div>
           <h1 style={{ fontSize: "clamp(40px, 6vw, 80px)", fontWeight: 900, letterSpacing: "-2px", color: "#fff", marginBottom: "32px", lineHeight: 1 }}>
             Built by a Man<br />
             <span style={{ color: "#8a8a8a" }}>Who Doesn&apos;t Miss.</span>
           </h1>
           <p style={{ fontSize: "20px", color: "#888", lineHeight: 1.8, maxWidth: "600px" }}>
-            Scott Low started at 15 with a union card and a tape measure. Thirty-three years
-            later, his work is in Yard House locations from coast to coast, SoFi Stadium,
-            Apple campuses, and 80 In-N-Out restaurants. Not because of marketing. Because
-            of precision.
+            Scott Low started at 15 with a union card and a tape measure. 45+ years of
+            experience and 33 years in business later, his work is in Yard House locations
+            from coast to coast, SoFi Stadium, Apple campuses, and 80 In-N-Out restaurants.
+            Not because of marketing. Because of precision.
           </p>
         </div>
       </section>
 
       {/* Founder block */}
       <section style={{ padding: "100px 24px" }}>
-        <div style={{ maxWidth: "1100px", margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "center" }}>
+        <div className="about-grid" style={{ maxWidth: "1100px", margin: "0 auto" }}>
           <div>
-            <div style={{ fontSize: "11px", letterSpacing: "3px", color: "#e53e3e", textTransform: "uppercase", marginBottom: "24px" }}>
-              Scott Low - Founder
+            <div style={{ fontSize: "11px", letterSpacing: "3px", color: "#C8A951", textTransform: "uppercase", marginBottom: "24px" }}>
+              Scott Low — Founder of Low&apos;s Custom Stainless
             </div>
             <h2 style={{ fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 900, color: "#fff", marginBottom: "24px", lineHeight: 1.2 }}>
               An A Mechanic Before He Was 21
@@ -70,18 +81,19 @@ export default function AboutPage() {
                 border: "1px solid #1a1a1a",
                 borderRadius: "4px",
                 padding: "48px",
-                borderLeft: "4px solid #e53e3e",
+                borderLeft: "4px solid #C8A951",
               }}
             >
               <div style={{ fontSize: "11px", letterSpacing: "2px", color: "#555", textTransform: "uppercase", marginBottom: "24px" }}>
-                By the Numbers
+                Low&apos;s Custom Stainless by the Numbers
               </div>
               {[
-                { n: "33+", label: "Years in Operation" },
-                { n: "70-80", label: "In-N-Out Locations" },
-                { n: "20+", label: "Years as Yard House Partner" },
-                { n: "6", label: "Industry Sectors Served" },
-                { n: "0", label: "Compromises" },
+                { target: 45, suffix: "+", label: "Years of Experience" },
+                { target: 33, suffix: "+", label: "Years in Business" },
+                { target: 80, suffix: "+", label: "In-N-Out Locations" },
+                { target: 20, suffix: "+", label: "Years as Yard House Partner" },
+                { target: 6, suffix: "", label: "Industry Sectors Served" },
+                { target: 0, suffix: "", label: "Compromises" },
               ].map((stat) => (
                 <div
                   key={stat.label}
@@ -93,7 +105,9 @@ export default function AboutPage() {
                     borderBottom: "1px solid #1a1a1a",
                   }}
                 >
-                  <span style={{ fontSize: "36px", fontWeight: 900, color: "#e53e3e" }}>{stat.n}</span>
+                  <span style={{ fontSize: "36px", fontWeight: 900, color: "#C8A951" }}>
+                    <CountUp target={stat.target} suffix={stat.suffix} />
+                  </span>
                   <span style={{ fontSize: "13px", color: "#666", textTransform: "uppercase", letterSpacing: "1px" }}>{stat.label}</span>
                 </div>
               ))}
@@ -105,11 +119,11 @@ export default function AboutPage() {
       {/* Timeline */}
       <section style={{ padding: "100px 24px", background: "#111" }}>
         <div style={{ maxWidth: "900px", margin: "0 auto" }}>
-          <div style={{ fontSize: "11px", letterSpacing: "3px", color: "#e53e3e", textTransform: "uppercase", marginBottom: "16px" }}>
+          <div style={{ fontSize: "11px", letterSpacing: "3px", color: "#C8A951", textTransform: "uppercase", marginBottom: "16px" }}>
             Timeline
           </div>
           <h2 style={{ fontSize: "clamp(28px, 4vw, 48px)", fontWeight: 900, color: "#fff", marginBottom: "64px" }}>
-            33 Years of Earned Reputation
+            Low&apos;s Custom Stainless: 33 Years of Earned Reputation
           </h2>
           <div style={{ position: "relative", paddingLeft: "40px", borderLeft: "2px solid #1a1a1a" }}>
             {timeline.map((item) => (
@@ -122,11 +136,11 @@ export default function AboutPage() {
                     width: "16px",
                     height: "16px",
                     borderRadius: "50%",
-                    background: "#e53e3e",
+                    background: "#C8A951",
                     border: "2px solid #0a0a0a",
                   }}
                 />
-                <div style={{ fontSize: "12px", fontWeight: 700, letterSpacing: "2px", color: "#e53e3e", textTransform: "uppercase", marginBottom: "8px" }}>
+                <div style={{ fontSize: "12px", fontWeight: 700, letterSpacing: "2px", color: "#C8A951", textTransform: "uppercase", marginBottom: "8px" }}>
                   {item.year}
                 </div>
                 <p style={{ color: "#888", fontSize: "15px", lineHeight: 1.7 }}>{item.event}</p>
@@ -139,8 +153,8 @@ export default function AboutPage() {
       {/* Next gen */}
       <section style={{ padding: "100px 24px" }}>
         <div style={{ maxWidth: "900px", margin: "0 auto" }}>
-          <div style={{ fontSize: "11px", letterSpacing: "3px", color: "#e53e3e", textTransform: "uppercase", marginBottom: "16px" }}>
-            The Next Chapter
+          <div style={{ fontSize: "11px", letterSpacing: "3px", color: "#C8A951", textTransform: "uppercase", marginBottom: "16px" }}>
+            The Next Chapter for Low&apos;s Custom Stainless
           </div>
           <h2 style={{ fontSize: "clamp(28px, 4vw, 48px)", fontWeight: 900, color: "#fff", marginBottom: "24px" }}>
             Shane Low is Taking the Helm
@@ -157,7 +171,7 @@ export default function AboutPage() {
             href="/quote"
             style={{
               display: "inline-block",
-              background: "#e53e3e",
+              background: "#C8A951",
               color: "#fff",
               padding: "16px 32px",
               borderRadius: "4px",
@@ -168,7 +182,7 @@ export default function AboutPage() {
               textDecoration: "none",
             }}
           >
-            Work With Us
+            Work With Low&apos;s Custom Stainless
           </Link>
         </div>
       </section>

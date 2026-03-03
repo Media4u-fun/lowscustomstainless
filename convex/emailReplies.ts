@@ -28,7 +28,7 @@ export const sendReply = action({
       <td align="center">
         <table width="600" cellpadding="0" cellspacing="0" style="background:#111;border:1px solid #333;border-radius:8px;overflow:hidden;max-width:600px;width:100%;">
           <tr>
-            <td style="background:linear-gradient(135deg,#1a1a1a 0%,#2a2a2a 100%);padding:32px 40px;border-bottom:2px solid #e53e3e;">
+            <td style="background:linear-gradient(135deg,#1a1a1a 0%,#2a2a2a 100%);padding:32px 40px;border-bottom:2px solid #C8A951;">
               <table width="100%" cellpadding="0" cellspacing="0">
                 <tr>
                   <td>
@@ -64,7 +64,7 @@ export const sendReply = action({
       html,
     });
 
-    await ctx.runAction(api.emailReplies.logReply, {
+    await ctx.runMutation(api.emailRepliesHelpers.insertLog, {
       to,
       subject,
       body,
@@ -72,35 +72,5 @@ export const sendReply = action({
       sourceId,
       sentAt: Date.now(),
     });
-  },
-});
-
-export const logReply = action({
-  args: {
-    to: v.string(),
-    subject: v.string(),
-    body: v.string(),
-    sourceType: v.string(),
-    sourceId: v.string(),
-    sentAt: v.number(),
-  },
-  handler: async (ctx, args) => {
-    await ctx.runMutation(api.emailReplies.insertLog, args);
-  },
-});
-
-import { mutation } from "./_generated/server";
-
-export const insertLog = mutation({
-  args: {
-    to: v.string(),
-    subject: v.string(),
-    body: v.string(),
-    sourceType: v.string(),
-    sourceId: v.string(),
-    sentAt: v.number(),
-  },
-  handler: async (ctx, args) => {
-    return ctx.db.insert("emailReplies", args);
   },
 });

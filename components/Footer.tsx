@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -19,24 +20,32 @@ export default function Footer() {
           }}
         >
           <div>
-            <div
-              style={{
-                fontSize: "16px",
-                fontWeight: 900,
-                letterSpacing: "2px",
-                color: "#fff",
-                textTransform: "uppercase",
-                marginBottom: "4px",
-              }}
-            >
-              Low&apos;s Custom Stainless
+            <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "4px" }}>
+              <Image
+                src="/logo.jpg"
+                alt="Low's Custom Stainless"
+                width={48}
+                height={48}
+                style={{ borderRadius: "4px" }}
+              />
+              <div
+                style={{
+                  fontSize: "16px",
+                  fontWeight: 900,
+                  letterSpacing: "2px",
+                  color: "#fff",
+                  textTransform: "uppercase",
+                }}
+              >
+                Low&apos;s Custom Stainless
+              </div>
             </div>
-            <div style={{ fontSize: "11px", color: "#e53e3e", letterSpacing: "2px", marginBottom: "16px" }}>
+            <div style={{ fontSize: "11px", color: "#C8A951", letterSpacing: "2px", marginBottom: "16px" }}>
               Est. 1991
             </div>
             <p style={{ color: "#666", fontSize: "13px", lineHeight: 1.7 }}>
-              33 years of elite commercial stainless fabrication and installation. Built by
-              craftsmen. Trusted by the best.
+              45+ years of experience. 33 years in business. Elite commercial stainless
+              fabrication and installation. Built by craftsmen. Trusted by the best.
             </p>
           </div>
 
@@ -83,7 +92,7 @@ export default function Footer() {
               Get Started
             </div>
             {[
-              { href: "/quote", label: "Request a Quote" },
+              { href: "/quote", label: "Commission Your Kitchen" },
               { href: "/store", label: "Commission Custom Work" },
               { href: "/contact", label: "Contact" },
               { href: "/login", label: "Client Portal" },
@@ -113,13 +122,18 @@ export default function Footer() {
             </div>
             <div style={{ color: "#666", fontSize: "14px", lineHeight: 1.8 }}>
               <div>scott@lowscustomstainless.com</div>
+              <div style={{ marginTop: "4px" }}>
+                <a href="tel:9099387628" style={{ color: "#ccc", textDecoration: "none", fontSize: "14px" }}>
+                  (909) 938-7628
+                </a>
+              </div>
               <div style={{ marginTop: "8px" }}>
-                <Link
-                  href="/contact"
-                  style={{ color: "#e53e3e", textDecoration: "none", fontSize: "14px" }}
+                <a
+                  href="tel:9099387628"
+                  style={{ color: "#C8A951", textDecoration: "none", fontSize: "14px" }}
                 >
-                  Emergency overnight install?
-                </Link>
+                  Emergency overnight install? Call now
+                </a>
               </div>
             </div>
           </div>

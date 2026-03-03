@@ -29,12 +29,13 @@ export async function requireAdmin(ctx: QueryCtx | MutationCtx) {
     throw new ConvexError({ code: "UNAUTHORIZED", message: "Authentication required" });
   }
 
+  const userId = String(user._id);
   const userRole = await ctx.db
     .query("userRoles")
-    .withIndex("by_userId", (q) => q.eq("userId", user._id))
+    .withIndex("by_userId", (q) => q.eq("userId", userId))
     .first();
 
-  if (userRole?.role !== "admin") {
+  if (userRole?.role !== "admin" && !ADMIN_EMAILS.includes(user.email.toLowerCase())) {
     throw new ConvexError({ code: "FORBIDDEN", message: "Admin access required" });
   }
 
@@ -88,15 +89,17 @@ export const isAdmin = query({
       const user = await authComponent.getAuthUser(ctx);
       if (!user) return false;
 
-      // Check userRoles table for admin role
+      const userId = String(user._id);
+
       const userRole = await ctx.db
         .query("userRoles")
-        .withIndex("by_userId", (q) => q.eq("userId", user._id))
+        .withIndex("by_userId", (q) => q.eq("userId", userId))
         .first();
 
-      return userRole?.role === "admin";
+      if (userRole?.role === "admin") return true;
+
+      return ADMIN_EMAILS.includes(user.email.toLowerCase());
     } catch {
-      // User not authenticated
       return false;
     }
   },
@@ -125,6 +128,57 @@ export const getUserRole = query({
       .first();
 
     return userRole?.role ?? "user";
+  },
+});
+
+// Auto-promote known admin emails on sign-in
+const ADMIN_EMAILS = ["scott@lowscustomstainless.com", "devland@media4u.fun"];
+
+export const ensureAdminRole = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const user = await getAuthenticatedUser(ctx);
+    if (!user) return;
+
+    if (!ADMIN_EMAILS.includes(user.email.toLowerCase())) return;
+
+    const existing = await ctx.db
+      .query("userRoles")
+      .withIndex("by_userId", (q) => q.eq("userId", user._id))
+      .first();
+
+    if (!existing) {
+      await ctx.db.insert("userRoles", {
+        userId: user._id,
+        role: "admin",
+        createdAt: Date.now(),
+      });
+    } else if (existing.role !== "admin") {
+      await ctx.db.patch(existing._id, { role: "admin" });
+    }
+  },
+});
+
+// One-time seed: promote a user by email (no auth required, remove after setup)
+export const seedAdmin = mutation({
+  args: { email: v.string() },
+  handler: async (ctx, { email }) => {
+    // Find user by email in the auth users table
+    const allUsers = await ctx.db.query("users").collect();
+    const user = allUsers.find((u) => u.email?.toLowerCase() === email.toLowerCase());
+    if (!user) throw new ConvexError({ code: "NOT_FOUND", message: `No user with email ${email}` });
+
+    const existing = await ctx.db
+      .query("userRoles")
+      .withIndex("by_userId", (q) => q.eq("userId", user._id))
+      .first();
+
+    if (!existing) {
+      await ctx.db.insert("userRoles", { userId: user._id, role: "admin", createdAt: Date.now() });
+    } else {
+      await ctx.db.patch(existing._id, { role: "admin" });
+    }
+    return `${email} is now admin`;
   },
 });
 

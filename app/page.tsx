@@ -102,7 +102,7 @@ export default function HomePage() {
             position: "absolute",
             inset: 0,
             backgroundImage:
-              "linear-gradient(rgba(229,62,62,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(229,62,62,0.03) 1px, transparent 1px)",
+              "linear-gradient(rgba(200,169,81,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(200,169,81,0.03) 1px, transparent 1px)",
             backgroundSize: "60px 60px",
           }}
         />
@@ -114,7 +114,7 @@ export default function HomePage() {
             left: 0,
             right: 0,
             height: "3px",
-            background: "linear-gradient(90deg, transparent, #e53e3e, transparent)",
+            background: "linear-gradient(90deg, transparent, #C8A951, transparent)",
           }}
         />
 
@@ -122,19 +122,19 @@ export default function HomePage() {
           <div
             style={{
               display: "inline-block",
-              background: "rgba(229,62,62,0.1)",
-              border: "1px solid rgba(229,62,62,0.3)",
+              background: "rgba(200,169,81,0.1)",
+              border: "1px solid rgba(200,169,81,0.3)",
               borderRadius: "4px",
               padding: "6px 16px",
               fontSize: "10px",
               letterSpacing: "2px",
               textTransform: "uppercase",
-              color: "#e53e3e",
+              color: "#C8A951",
               marginBottom: "32px",
               maxWidth: "100%",
             }}
           >
-            33 Years - Zero Compromises
+            Low&apos;s Custom Stainless - 45+ Years Experience - Zero Compromises
           </div>
 
           <h1
@@ -161,9 +161,10 @@ export default function HomePage() {
               lineHeight: 1.7,
             }}
           >
-            Elite commercial stainless fabrication and installation. Yard House exclusive
+            Low&apos;s Custom Stainless — elite commercial stainless fabrication and installation.
+            45+ years of hands-on experience. 33 years in business. Yard House exclusive
             partner for 20+ years. 70-80 In-N-Out locations. Stadiums, hospitals, Fortune
-            500. Built by Scott Low - master fabricator since 1991.
+            500. Built by Scott Low — master fabricator since 1981.
           </p>
 
           <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap", width: "100%" }}>
@@ -173,7 +174,7 @@ export default function HomePage() {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "8px",
-                background: "#e53e3e",
+                background: "#C8A951",
                 color: "#fff",
                 padding: "16px 28px",
                 borderRadius: "4px",
@@ -187,7 +188,7 @@ export default function HomePage() {
                 maxWidth: "260px",
               }}
             >
-              Request a Quote
+              Commission Your Kitchen
             </Link>
             <Link
               href="/gallery"
@@ -217,18 +218,18 @@ export default function HomePage() {
           {/* Emergency CTA */}
           <div style={{ marginTop: "48px" }}>
             <Link
-              href="/contact"
+              href="tel:9099387628"
               style={{
-                color: "#d69e2e",
+                color: "#C8A951",
                 fontSize: "12px",
                 textDecoration: "none",
                 letterSpacing: "2px",
                 textTransform: "uppercase",
-                borderBottom: "1px solid rgba(214,158,46,0.3)",
+                borderBottom: "1px solid rgba(200,169,81,0.3)",
                 paddingBottom: "2px",
               }}
             >
-              Emergency Overnight Install - Inquire Now
+              Emergency Overnight Install - Call (909) 938-7628
             </Link>
           </div>
         </div>
@@ -284,12 +285,12 @@ export default function HomePage() {
               style={{
                 fontSize: "11px",
                 letterSpacing: "3px",
-                color: "#e53e3e",
+                color: "#C8A951",
                 textTransform: "uppercase",
                 marginBottom: "16px",
               }}
             >
-              Industries We Serve
+              Industries Low&apos;s Custom Stainless Serves
             </div>
             <h2
               style={{
@@ -301,7 +302,7 @@ export default function HomePage() {
             >
               Six Sectors.
               <br />
-              <span style={{ color: "#8a8a8a" }}>One Standard.</span>
+              <span style={{ color: "#8a8a8a" }}>One Name: Low&apos;s Custom Stainless.</span>
             </h2>
           </div>
           <div
@@ -322,13 +323,13 @@ export default function HomePage() {
                   transition: "border-color 0.2s",
                 }}
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.borderLeftColor = "#e53e3e";
+                  (e.currentTarget as HTMLDivElement).style.borderLeftColor = "#C8A951";
                 }}
                 onMouseLeave={(e) => {
                   (e.currentTarget as HTMLDivElement).style.borderLeftColor = "transparent";
                 }}
               >
-                <div style={{ fontSize: "13px", fontWeight: 700, letterSpacing: "3px", color: "#e53e3e", marginBottom: "20px", fontFamily: "serif" }}>{s.icon}</div>
+                <div style={{ fontSize: "13px", fontWeight: 700, letterSpacing: "3px", color: "#C8A951", marginBottom: "20px", fontFamily: "serif" }}>{s.icon}</div>
                 <h3
                   style={{
                     fontSize: "18px",
@@ -355,12 +356,12 @@ export default function HomePage() {
               style={{
                 fontSize: "11px",
                 letterSpacing: "3px",
-                color: "#e53e3e",
+                color: "#C8A951",
                 textTransform: "uppercase",
                 marginBottom: "16px",
               }}
             >
-              What We Do
+              What Low&apos;s Custom Stainless Does
             </div>
             <h2
               style={{
@@ -372,7 +373,7 @@ export default function HomePage() {
             >
               End-to-End.
               <br />
-              <span style={{ color: "#8a8a8a" }}>No Exceptions.</span>
+              <span style={{ color: "#8a8a8a" }}>Low&apos;s Custom Stainless. No Exceptions.</span>
             </h2>
           </div>
           <div
@@ -395,13 +396,13 @@ export default function HomePage() {
                 <div
                   style={{
                     display: "inline-block",
-                    background: "rgba(229,62,62,0.1)",
-                    border: "1px solid rgba(229,62,62,0.2)",
+                    background: "rgba(200,169,81,0.1)",
+                    border: "1px solid rgba(200,169,81,0.2)",
                     borderRadius: "3px",
                     padding: "3px 10px",
                     fontSize: "10px",
                     letterSpacing: "2px",
-                    color: "#e53e3e",
+                    color: "#C8A951",
                     marginBottom: "16px",
                     textTransform: "uppercase",
                   }}
@@ -420,13 +421,13 @@ export default function HomePage() {
               href="/services"
               style={{
                 display: "inline-block",
-                color: "#e53e3e",
+                color: "#C8A951",
                 fontSize: "14px",
                 fontWeight: 700,
                 letterSpacing: "1px",
                 textTransform: "uppercase",
                 textDecoration: "none",
-                borderBottom: "1px solid #e53e3e",
+                borderBottom: "1px solid #C8A951",
                 paddingBottom: "4px",
               }}
             >
@@ -443,7 +444,7 @@ export default function HomePage() {
             style={{
               background: "#111",
               border: "1px solid #1a1a1a",
-              borderLeft: "4px solid #e53e3e",
+              borderLeft: "4px solid #C8A951",
               borderRadius: "4px",
               padding: "60px",
             }}
@@ -452,12 +453,12 @@ export default function HomePage() {
               style={{
                 fontSize: "11px",
                 letterSpacing: "3px",
-                color: "#e53e3e",
+                color: "#C8A951",
                 textTransform: "uppercase",
                 marginBottom: "24px",
               }}
             >
-              The Founder
+              The Founder of Low&apos;s Custom Stainless
             </div>
             <blockquote
               style={{
@@ -476,7 +477,7 @@ export default function HomePage() {
             <div>
               <div style={{ fontSize: "18px", fontWeight: 700, color: "#fff" }}>Scott Low</div>
               <div style={{ fontSize: "13px", color: "#666", marginTop: "4px" }}>
-                Founder - Union Sheet Metal Apprentice at 15 - A Mechanic by 20
+                Founder, Low&apos;s Custom Stainless — Union Sheet Metal Apprentice at 15 — A Mechanic by 20
               </div>
             </div>
             <div style={{ marginTop: "40px" }}>
@@ -484,7 +485,7 @@ export default function HomePage() {
                 href="/about"
                 style={{
                   display: "inline-block",
-                  color: "#e53e3e",
+                  color: "#C8A951",
                   fontSize: "14px",
                   fontWeight: 700,
                   letterSpacing: "1px",
@@ -518,20 +519,20 @@ export default function HomePage() {
               marginBottom: "24px",
             }}
           >
-            Ready to Build Something
+            Ready to Build With
             <br />
-            <span style={{ color: "#e53e3e" }}>That Lasts?</span>
+            <span style={{ color: "#C8A951" }}>Low&apos;s Custom Stainless?</span>
           </h2>
           <p style={{ color: "#777", fontSize: "16px", lineHeight: 1.7, marginBottom: "40px" }}>
-            Tell us about your project. We&apos;ll respond within one business day with a
-            clear assessment and path forward.
+            Tell Low&apos;s Custom Stainless about your project. We&apos;ll respond within one
+            business day with a clear assessment and path forward.
           </p>
           <div style={{ display: "flex", gap: "16px", justifyContent: "center", flexWrap: "wrap" }}>
             <Link
               href="/quote"
               style={{
                 display: "inline-block",
-                background: "#e53e3e",
+                background: "#C8A951",
                 color: "#fff",
                 padding: "18px 40px",
                 borderRadius: "4px",
@@ -542,14 +543,14 @@ export default function HomePage() {
                 textDecoration: "none",
               }}
             >
-              Start Your Quote
+              Commission Your Kitchen
             </Link>
             <Link
               href="/store"
               style={{
                 display: "inline-block",
                 background: "transparent",
-                color: "#d69e2e",
+                color: "#C8A951",
                 padding: "18px 40px",
                 borderRadius: "4px",
                 fontWeight: 700,
@@ -557,7 +558,7 @@ export default function HomePage() {
                 letterSpacing: "1px",
                 textTransform: "uppercase",
                 textDecoration: "none",
-                border: "1px solid #d69e2e",
+                border: "1px solid #C8A951",
               }}
             >
               Commission Custom Work

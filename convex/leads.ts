@@ -40,6 +40,7 @@ export const update = mutation({
     status: v.optional(v.string()),
     notes: v.optional(v.string()),
     value: v.optional(v.number()),
+    website: v.optional(v.string()),
   },
   handler: async (ctx, { id, ...fields }) => {
     await requireAdmin(ctx);

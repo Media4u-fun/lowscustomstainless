@@ -30,12 +30,12 @@ export default function ContactsAdminPage() {
               borderBottom: "1px solid #1a1a1a",
               cursor: "pointer",
               background: selected === c._id ? "#111" : "transparent",
-              borderLeft: selected === c._id ? "3px solid #e53e3e" : "3px solid transparent",
+              borderLeft: selected === c._id ? "3px solid #C8A951" : "3px solid transparent",
             }}
           >
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "4px" }}>
               <div style={{ fontSize: "14px", fontWeight: 600, color: c.read ? "#ccc" : "#fff" }}>{c.name}</div>
-              <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: !c.read ? "#e53e3e" : "transparent", alignSelf: "center" }} />
+              <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: !c.read ? "#C8A951" : "transparent", alignSelf: "center" }} />
             </div>
             <div style={{ fontSize: "12px", color: "#666", marginBottom: "4px" }}>{c.subject}</div>
             <div style={{ fontSize: "11px", color: "#444" }}>{c.email}</div>
@@ -66,7 +66,7 @@ export default function ContactsAdminPage() {
                 onClick={() => markReplied({ id: selectedContact._id as Id<"contactSubmissions"> })}
                 style={{
                   display: "inline-block",
-                  background: "#e53e3e",
+                  background: "#C8A951",
                   color: "#fff",
                   padding: "12px 24px",
                   borderRadius: "4px",

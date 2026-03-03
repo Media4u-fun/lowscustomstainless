@@ -18,8 +18,8 @@ export default function AdminDashboard() {
   const pendingOrders = orders?.filter((o) => o.status === "pending").length ?? 0;
 
   const cards = [
-    { label: "New Quotes", value: newQuotes, href: "/admin/quotes", color: "#e53e3e", Icon: FileText },
-    { label: "Unread Contacts", value: unreadContacts, href: "/admin/contacts", color: "#d69e2e", Icon: MessageSquare },
+    { label: "New Quotes", value: newQuotes, href: "/admin/quotes", color: "#C8A951", Icon: FileText },
+    { label: "Unread Contacts", value: unreadContacts, href: "/admin/contacts", color: "#C8A951", Icon: MessageSquare },
     { label: "New Leads", value: newLeads, href: "/admin/leads", color: "#3182ce", Icon: BarChart3 },
     { label: "Pending Orders", value: pendingOrders, href: "/admin/orders", color: "#38a169", Icon: ShoppingBag },
     { label: "Total Products", value: products?.length ?? 0, href: "/admin/products", color: "#805ad5", Icon: Package },
@@ -62,7 +62,7 @@ export default function AdminDashboard() {
         <div style={{ background: "#111", border: "1px solid #1a1a1a", borderRadius: "4px", padding: "24px" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
             <h2 style={{ fontSize: "14px", fontWeight: 700, color: "#fff", letterSpacing: "1px", textTransform: "uppercase" }}>Recent Quotes</h2>
-            <Link href="/admin/quotes" style={{ color: "#e53e3e", fontSize: "12px", textDecoration: "none" }}>View all</Link>
+            <Link href="/admin/quotes" style={{ color: "#C8A951", fontSize: "12px", textDecoration: "none" }}>View all</Link>
           </div>
           {quotes?.slice(0, 5).map((q) => (
             <div key={q._id} style={{ padding: "12px 0", borderBottom: "1px solid #1a1a1a", display: "flex", justifyContent: "space-between" }}>
@@ -78,8 +78,8 @@ export default function AdminDashboard() {
                   borderRadius: "3px",
                   letterSpacing: "1px",
                   textTransform: "uppercase",
-                  background: q.status === "new" ? "rgba(229,62,62,0.1)" : "rgba(255,255,255,0.05)",
-                  color: q.status === "new" ? "#e53e3e" : "#666",
+                  background: q.status === "new" ? "rgba(200,169,81,0.1)" : "rgba(255,255,255,0.05)",
+                  color: q.status === "new" ? "#C8A951" : "#666",
                   alignSelf: "center",
                 }}
               >
@@ -94,7 +94,7 @@ export default function AdminDashboard() {
         <div style={{ background: "#111", border: "1px solid #1a1a1a", borderRadius: "4px", padding: "24px" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
             <h2 style={{ fontSize: "14px", fontWeight: 700, color: "#fff", letterSpacing: "1px", textTransform: "uppercase" }}>Recent Contacts</h2>
-            <Link href="/admin/contacts" style={{ color: "#e53e3e", fontSize: "12px", textDecoration: "none" }}>View all</Link>
+            <Link href="/admin/contacts" style={{ color: "#C8A951", fontSize: "12px", textDecoration: "none" }}>View all</Link>
           </div>
           {contacts?.slice(0, 5).map((c) => (
             <div key={c._id} style={{ padding: "12px 0", borderBottom: "1px solid #1a1a1a", display: "flex", justifyContent: "space-between" }}>
@@ -103,7 +103,7 @@ export default function AdminDashboard() {
                 <div style={{ color: "#555", fontSize: "12px" }}>{c.subject}</div>
               </div>
               {!c.read && (
-                <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#e53e3e", alignSelf: "center" }} />
+                <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#C8A951", alignSelf: "center" }} />
               )}
             </div>
           ))}

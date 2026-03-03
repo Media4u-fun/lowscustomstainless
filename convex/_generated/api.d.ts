@@ -13,6 +13,8 @@ import type * as blog from "../blog.js";
 import type * as contactSubmissions from "../contactSubmissions.js";
 import type * as emailLog from "../emailLog.js";
 import type * as emailReplies from "../emailReplies.js";
+import type * as emailRepliesHelpers from "../emailRepliesHelpers.js";
+import type * as files from "../files.js";
 import type * as http from "../http.js";
 import type * as leads from "../leads.js";
 import type * as newsletter from "../newsletter.js";
@@ -20,6 +22,7 @@ import type * as orders from "../orders.js";
 import type * as portfolio from "../portfolio.js";
 import type * as products from "../products.js";
 import type * as quoteRequests from "../quoteRequests.js";
+import type * as seed from "../seed.js";
 
 import type {
   ApiFromModules,
@@ -33,6 +36,8 @@ declare const fullApi: ApiFromModules<{
   contactSubmissions: typeof contactSubmissions;
   emailLog: typeof emailLog;
   emailReplies: typeof emailReplies;
+  emailRepliesHelpers: typeof emailRepliesHelpers;
+  files: typeof files;
   http: typeof http;
   leads: typeof leads;
   newsletter: typeof newsletter;
@@ -40,6 +45,7 @@ declare const fullApi: ApiFromModules<{
   portfolio: typeof portfolio;
   products: typeof products;
   quoteRequests: typeof quoteRequests;
+  seed: typeof seed;
 }>;
 
 /**
