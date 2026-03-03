@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LogIn } from "lucide-react";
 
 const navLinks = [
   { href: "/portfolio", label: "Portfolio" },
@@ -130,6 +130,21 @@ export default function Navbar() {
             >
               Commission
             </Link>
+            <Link
+              href="/admin/login"
+              style={{
+                color: "#555",
+                textDecoration: "none",
+                display: "flex",
+                alignItems: "center",
+                transition: "color 0.2s",
+              }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = "#C8A951"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = "#555"; }}
+              title="Login"
+            >
+              <LogIn size={18} />
+            </Link>
           </div>
 
           {/* Mobile toggle */}
@@ -206,6 +221,25 @@ export default function Navbar() {
               }}
             >
               Commission
+            </Link>
+            <Link
+              href="/admin/login"
+              onClick={() => setOpen(false)}
+              style={{
+                color: "#777",
+                textDecoration: "none",
+                fontSize: "14px",
+                fontWeight: 600,
+                letterSpacing: "1px",
+                textTransform: "uppercase",
+                textAlign: "center",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "8px",
+              }}
+            >
+              <LogIn size={16} /> Login
             </Link>
           </div>
         )}
