@@ -11,7 +11,7 @@ const http = httpRouter();
 // Register Better Auth routes with CORS enabled for client-side access
 authComponent.registerRoutes(http, createAuth, {
   cors: {
-    allowedOrigins: [siteUrl, "http://localhost:3000", "http://localhost:3001"],
+    allowedOrigins: [siteUrl, "http://localhost:3000", "http://localhost:3001", "https://lowscustomstainless.vercel.app"],
     allowedHeaders: ["Content-Type", "Authorization"],
   },
 });
